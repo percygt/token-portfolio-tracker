@@ -1,0 +1,10 @@
+.home {
+  color: white;
+  background-color: rgb(24, 20, 40);
+
+  padding-top: 1rem;
+  display: flex;
+  .homeContainer {
+    flex: 9;
+  }
+}
