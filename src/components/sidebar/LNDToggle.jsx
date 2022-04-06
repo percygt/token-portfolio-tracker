@@ -3,21 +3,25 @@ import "./sidebar.scss";
 import { ReactComponent as MoonIcon } from "../../assets/svg/moon.svg";
 import { ReactComponent as SunIcon } from "../../assets/svg/sun.svg";
 
-const updateTheme = (isDarkEnabled) => {
+const updateTheme = (isLightEnabled) => {
   // Get CSS variables for background/foreground
   const styles = getComputedStyle(document.body);
   const black = styles.getPropertyValue("--black");
   const white = styles.getPropertyValue("--white");
+  const transw = styles.getPropertyValue("--transw");
+  const transb = styles.getPropertyValue("--transb");
   const docEl = document.documentElement;
 
-  if (isDarkEnabled) {
-    docEl.style.setProperty("--background", black);
-    docEl.style.setProperty("--foreground", white);
-    document.querySelector("html").classList.add("darkmode");
-  } else {
+  if (isLightEnabled) {
     docEl.style.setProperty("--background", white);
     docEl.style.setProperty("--foreground", black);
-    document.querySelector("html").classList.remove("darkmode");
+    docEl.style.setProperty("--line", transb);
+    document.querySelector("html").classList.add("lightmode");
+  } else {
+    docEl.style.setProperty("--background", black);
+    docEl.style.setProperty("--foreground", white);
+    docEl.style.setProperty("--line", transw);
+    document.querySelector("html").classList.remove("lightmode");
   }
 };
 
@@ -36,11 +40,11 @@ export default function LNDToggle() {
     <label className="toggle-wrapper" htmlFor="toggle">
       <div className={`toggle ${isEnabled ? "enabled" : "disabled"}`}>
         <span className="hidden">
-          {isEnabled ? "Enable Light Mode" : "Enable Dark Mode"}
+          {isEnabled ? "Enable Dark Mode" : "Enable Light Mode"}
         </span>
         <div className="icons">
-          <SunIcon />
           <MoonIcon />
+          <SunIcon />
         </div>
         <input
           id="toggle"

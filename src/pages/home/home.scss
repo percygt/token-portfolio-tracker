@@ -1,10 +1,27 @@
 .home {
-  color: white;
-  background-color: rgb(24, 20, 40);
-
-  padding-top: 1rem;
+  // overflow: hidden;
+  height: 100%;
+  background-color: transparent;
   display: flex;
-  .homeContainer {
-    flex: 9;
+  position: relative;
+
+  .home__container {
+    flex-grow: 1;
+    width: 100%;
+    margin-left: 15rem;
+    min-height: 100%;
+
+    position: relative;
+    .navbar__container {
+      width: 100%;
+      // overflow: hidden auto;
+      padding: 1.5rem 1rem;
+      position: relative;
+    }
+    .widgets__container {
+      display: flex;
+      padding: 1rem;
+      gap: 1rem;
+    }
   }
 }

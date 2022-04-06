@@ -7,10 +7,11 @@ import InfoIcon from "@mui/icons-material/Info";
 import LNDToggle from "./LNDToggle";
 
 const Sidebar = () => {
+  const logo = "prcy.";
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">prcy.Dev</span>
+        <span className="logo">{logo}</span>
       </div>
 
       <div className="center">
@@ -33,9 +34,9 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className="bottom">
+      {/* <div className="bottom">
         <LNDToggle />
-      </div>
+      </div> */}
     </div>
   );
 };

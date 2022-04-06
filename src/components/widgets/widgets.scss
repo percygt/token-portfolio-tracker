@@ -1,0 +1,22 @@
+.widget {
+  display: flex;
+  flex: 1;
+  padding: 1rem;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 10px 10px 35px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 35px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 35px -4px rgba(0, 0, 0, 0.75);
+  height: auto;
+  .left,
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 2rem;
+    .explorer,
+    .details {
+      margin-top: 2rem;
+    }
+  }
+}

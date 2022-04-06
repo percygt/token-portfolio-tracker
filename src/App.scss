@@ -1,7 +1,49 @@
 :root {
-  --black: #333333;
+  --black: rgb(24, 20, 40);
   --white: #f5f5f5;
-  --background: var(--white);
-  --foreground: var(--black);
+  --foreground: var(--white);
+  --background: var(--black);
+  --transw: rgba(255, 255, 255, 0.1);
+  --transb: rgba(0, 0, 0, 0.1);
+  --line: var(--transw);
+  --hover: var(--transw);
   --transition: 0.5s ease;
+}
+html {
+  background: var(--black);
+  color: var(--foreground);
+  transition: color var(--transition);
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: var(--white);
+  transform: translateX(-100%);
+  transition: transform var(--transition);
+  z-index: 0;
+}
+
+.lightmode::before {
+  transform: translateX(0);
+}
+.btn {
+  width: max-content;
+  display: inline-block;
+  color: var(--white);
+  padding: 0.75rem 1.2rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  border: 1px solid var(--white);
+  transition: var(--transition);
+  &.btn-variant {
+    background-color: var(--transwb);
+  }
+  &:hover {
+    color: var(--black);
+    background-color: var(--white);
+    transition: var(--transition);
+  }
 }
