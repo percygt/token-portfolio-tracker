@@ -47,3 +47,6 @@ html::before {
     transition: var(--transition);
   }
 }
+.active {
+  background-color: var(--transb);
+}

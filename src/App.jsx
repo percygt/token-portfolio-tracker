@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.scss";
-import Home from "./pages/home/Home";
+import Portfolio from "./pages/portfolio/Portfolio";
 import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import New from "./pages/new/New";
@@ -13,7 +13,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route index element={<Portfolio />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />

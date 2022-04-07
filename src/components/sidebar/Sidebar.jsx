@@ -16,7 +16,7 @@ const Sidebar = () => {
 
       <div className="center">
         <ul>
-          <li>
+          <li className="active">
             <AccountBalanceWalletIcon className="icon" />
             <span>Portfolio</span>
           </li>

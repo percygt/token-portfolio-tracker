@@ -2,25 +2,25 @@ import React from "react";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
-import "./widgets.scss";
+import "./widget.scss";
 
-const Widgets = () => {
+const Widget = () => {
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">BITCOIN</span>
-        <span className="counter">$45,000</span>
-        <span className="details">View more</span>
+        <span className="token__symbol">BTC</span>
+        <span className="token__name">BITCOIN</span>
       </div>
       <div className="right">
-        <ArrowDropDownRoundedIcon />
-        <span className="percentage">-10%</span>
-        <span className="explorer">
-          <ExploreRoundedIcon />
+        <span className="token__price">$43,000</span>
+
+        <span className="token__24hChange positive">
+          <ArrowDropDownRoundedIcon className="arrow_icon" />
+          <span className="percentage">+10%</span>
         </span>
       </div>
     </div>
   );
 };
 
-export default Widgets;
+export default Widget;

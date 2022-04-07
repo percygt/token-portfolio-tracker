@@ -1,0 +1,51 @@
+.widget {
+  display: flex;
+  background-color: var(--transb);
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
+
+  .left,
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    .token__symbol {
+      font-size: 1rem;
+      padding-bottom: 0.2rem;
+    }
+    .token__name {
+      font-size: 0.5rem;
+      color: gray;
+    }
+    .token__price {
+      padding-top: 0.35rem;
+      font-size: 0.8rem;
+    }
+    .token__24hChange {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      position: relative;
+      &.positive {
+        color: green;
+      }
+      &.negative {
+        color: red;
+      }
+      .percentage {
+        font-size: 0.7rem;
+      }
+      .arrow_icon {
+        position: absolute;
+        display: flex;
+        right: 1.2rem;
+        top: -0.5rem;
+        font-size: 2rem;
+      }
+    }
+  }
+}
