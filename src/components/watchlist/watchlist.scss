@@ -1,9 +1,30 @@
 .watchlist {
-  display: flex;
   grid-area: watchlist;
   border-radius: 1rem;
   background-color: var(--transb);
   -webkit-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
+  .watchlist_container {
+    color: rgb(255, 255, 255);
+    display: flex;
+
+    flex-direction: column;
+    background-color: var(--transw);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem;
+    font-size: 0.8rem;
+    .watchlist_content {
+      display: flex;
+      > * {
+        border-bottom: 1px solid var(--transw);
+        border-top: 1px solid var(--transw);
+        width: 50%;
+      }
+      .left .token_name {
+        font-size: 0.7rem;
+      }
+    }
+  }
 }

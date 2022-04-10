@@ -1,48 +1,65 @@
 .widget {
+  width: 12rem;
   display: flex;
+  cursor: pointer;
   background-color: var(--transb);
   gap: 1rem;
+  margin-top: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
   -webkit-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
-
+  &:hover {
+    background-color: var(--white);
+    color: var(--black);
+  }
   .left,
   .right {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 0.1rem;
     .token__symbol {
-      font-size: 1rem;
-      padding-bottom: 0.2rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      .c_icon {
+        height: 0.75rem;
+        margin-right: 0.5rem;
+      }
     }
     .token__name {
-      font-size: 0.5rem;
+      font-size: 0.6rem;
       color: gray;
     }
     .token__price {
-      padding-top: 0.35rem;
       font-size: 0.8rem;
+    }
+    .volume {
+      padding-top: 0.2rem;
+      display: flex;
+      font-size: 0.6rem;
+    }
+    .market_cap {
+      display: flex;
+      font-size: 0.6rem;
     }
     .token__24hChange {
       display: flex;
-      justify-content: end;
       align-items: center;
       position: relative;
+      font-size: 0.7rem;
       &.positive {
         color: green;
       }
       &.negative {
         color: red;
       }
-      .percentage {
-        font-size: 0.7rem;
-      }
       .arrow_icon {
-        position: absolute;
         display: flex;
-        right: 1.2rem;
+        position: absolute;
+
+        left: 2rem;
         top: -0.5rem;
         font-size: 2rem;
       }

@@ -1,9 +1,36 @@
 .holdings {
-  display: flex;
   grid-area: holdings;
   border-radius: 1rem;
   background-color: var(--transb);
   -webkit-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
+  .wallet {
+    color: rgb(255, 255, 255);
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .wallet_content {
+      padding: 0.5rem 0;
+      background-color: var(--transw);
+      border-radius: 0.4rem;
+      font-size: 0.8rem;
+      display: flex;
+
+      .left {
+        width: calc(50% - 2rem);
+        margin-left: 1rem;
+        .token_symbol_price {
+          display: flex;
+          .token_symbol {
+            margin-right: 0.2rem;
+          }
+        }
+      }
+      .right {
+        width: 50%;
+      }
+    }
+  }
 }

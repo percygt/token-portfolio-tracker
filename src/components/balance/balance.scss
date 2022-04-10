@@ -1,9 +1,50 @@
-.balance {
+.balance_detail {
   display: flex;
+  flex-direction: column;
   grid-area: balance;
   border-radius: 1rem;
   background-color: var(--transb);
   -webkit-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.75);
+  .balance_content {
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 1rem;
+    font-size: 1rem;
+    .top {
+      background-color: var(--transw);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      .balance_total_usd {
+        font-size: 2.5rem;
+      }
+      .balance_total_btc {
+        font-size: 1.5rem;
+      }
+    }
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+      gap: 1rem;
+      .transact {
+        display: flex;
+
+        gap: 0.5rem;
+
+        > * {
+          padding: 1rem;
+          width: 50%;
+        }
+      }
+      .swap {
+        width: 100%;
+        padding: 1rem;
+      }
+    }
+  }
 }
