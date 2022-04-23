@@ -1,7 +1,5 @@
 .portfolio {
-  // overflow: hidden;
   height: 100vh;
-
   display: flex;
 
   .portfolio__container {
@@ -10,31 +8,36 @@
     margin-left: 15rem;
 
     .navbar__container {
-      padding: 1.6rem 1rem 1rem;
-      height: 6rem;
+      padding: 0.5rem 1rem 1rem;
+      // height: 6rem;
     }
+
     .widgets__container {
+      padding-top: 0.5rem;
       border-top: 1px solid var(--transw);
       border-bottom: 1px solid var(--transw);
-      display: flex;
-      gap: 2rem;
       margin: 0 1rem;
-      // justify-content: space-between;
-      // align-items: center;
-      height: 10rem;
+      .mySwiper {
+        display: flex;
+        height: 10rem;
+      }
+      .widgets_label {
+        font-size: 0.8rem;
+        color: gray;
+      }
     }
     .main__container {
       margin: 1rem;
       display: grid;
-      grid-template-areas:
-        "holdings holdings balance balance watchlist"
-        "transaction transaction transaction transaction watchlist";
+      grid-template-columns: 2fr 2fr 1fr;
+      grid-template-rows: 23rem calc(100vh - 42rem);
       gap: 1rem;
       height: calc(100vh - 18rem);
-      min-height: 20rem;
       > * {
         padding: 1rem;
-        color: rgb(89, 109, 109);
+        color: rgb(74, 139, 139);
+        background-color: rgb(12, 34, 53);
+        border-radius: 1rem;
       }
     }
   }

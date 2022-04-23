@@ -1,30 +1,32 @@
 import React from "react";
 import "./App.scss";
 import Portfolio from "./pages/portfolio/Portfolio";
-import List from "./pages/list/List";
-import Login from "./pages/login/Login";
-import New from "./pages/new/New";
-import Single from "./pages/single/Single";
+import Swap from "./pages/swap/Swap";
+import Tools from "./pages/tools/Tools";
+import About from "./pages/about/About";
+import { useEffect } from "react";
+import { useMoralis } from "react-moralis";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-const App = () => {
+const App = ({ isServerInfo }) => {
+  const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
+    useMoralis();
+
+  useEffect(() => {
+    const connectorId = window.localStorage.getItem("connectorId");
+    if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
+      enableWeb3({ provider: connectorId });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isWeb3Enabled]);
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
           <Route path="/">
             <Route index element={<Portfolio />} />
-            <Route path="login" element={<Login />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route path="new" element={<New />} />
-            </Route>
-            <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route path="new" element={<New />} />
-            </Route>
+            <Route path="swap" element={<Swap />} />
+            <Route path="tools" element={<Tools />} />
+            <Route path="about" element={<About />} />
           </Route>
         </Routes>
       </BrowserRouter>

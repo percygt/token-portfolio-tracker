@@ -2,8 +2,6 @@ import React from "react";
 
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 import "./widget.scss";
 
