@@ -1,7 +1,10 @@
 .holdings {
   height: 23rem;
+  min-width: 30rem;
+
   .wallet {
-    margin: 1rem;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
     color: rgb(255, 255, 255);
     font-size: 1rem;
     overflow: hidden scroll;
@@ -16,21 +19,49 @@
       background-color: rgb(37, 37, 97);
       border-radius: 0.5rem;
       > * {
-        width: 50%;
-        margin: 0.25rem 0.5rem;
+        width: calc(50%);
+        margin: 0.25rem 1rem;
+      }
+      &:hover {
+        transform: scale(1.05);
+        background-color: var(--transw);
+        transition: var(--transition);
       }
       .left {
+        .token_symbol_price {
+          display: inline-flex;
+          align-items: center;
+          // max-width: 10rem;
+          // margin-right: 0.5rem;
+
+          .token_symbol {
+            max-width: 5em;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            margin-right: 0.5rem;
+          }
+          .token_price {
+            max-width: 5rem;
+            display: inline-block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 0.85rem;
+          }
+        }
         .token_name {
           font-size: 0.75rem;
           color: gray;
         }
       }
-      // .right {
-      //   .token_24h_change {
-      //     font-size: 0.75rem;
-      //     color: rgb(197, 14, 14);
-      //   }
-      // }
+      .right {
+        .token_value {
+          font-size: 0.85rem;
+        }
+      }
     }
   }
 }
