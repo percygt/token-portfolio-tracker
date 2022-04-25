@@ -1,62 +1,43 @@
 import "./holdings.scss";
-// import FetchBalance from "./FetchBalance";
+import { useMoralis } from "react-moralis";
 import { useEffect, useState, useCallback } from "react";
-import FetchDexTokenPrice from "./FetchDexTokenPrice";
+import GetPrice from "./GetPrice";
 
-import {
-  useMoralis,
-  useMoralisWeb3Api,
-  useMoralisWeb3ApiCall,
-} from "react-moralis";
-
-const Holdings = () => {
-  const {
-    Moralis,
-    chainId,
-    account: walletAddress,
-    isAuthenticated,
-  } = useMoralis();
-  const [tokenDatas, setTokenDatas] = useState([]);
-  const Web3Api = useMoralisWeb3Api();
-  const { fetch } = useMoralisWeb3ApiCall(Web3Api.account.getTokenBalances, {
-    chain: chainId,
-  });
-
-  const fetchResponse = useCallback(async () => {
-    try {
-      const response = await fetch();
-      if (!response) return [];
-      return response;
-    } catch (err) {
-      console.log(err.stack);
-    }
-  }, [fetch]);
-
+const Holdings = ({ assets, prices }) => {
+  const { Moralis, account: walletAddress, isAuthenticated } = useMoralis();
+  const [address, setAddress] = useState([]);
+  const [tokenPrices, setTokenprice] = useState([]);
+  console.log(tokenPrices);
   useEffect(() => {
-    async function fetchAssets() {
-      await fetchResponse().then((balance) => {
-        setTokenDatas(balance);
-      });
-    }
-    fetchAssets();
-  }, [walletAddress, isAuthenticated, fetchResponse]);
+    prices && setTokenprice(prices);
+  }, [prices]);
+  // const getPrice = (tokenAddress) => {
+  //   console.log(tokenAddress);
+  //     const tokenPrice = await Promise.all(
+  //       prices?.filter((price) => {
+  //         return price.address === tokenAddress;
+  //       })
+  //     );
+  //     console.log(tokenPrice);
+  //     // return tokenPrice[0].tokenData.price;
+  // };
+
   return (
     <div className="holdings">
       <div className="holdings_label">Holdings</div>
       <div className="wallet">
-        {/* <FetchBalance data={tokenDatas} /> */}
-        {!tokenDatas || !walletAddress || !isAuthenticated
+        {!assets || !walletAddress || !isAuthenticated
           ? "Loading..."
-          : tokenDatas?.map((asset) => {
+          : assets?.map((asset) => {
               return (
                 <div className="wallet_content" key={asset.token_address}>
                   <div className="left">
                     <div className="token_symbol_price">
                       <span className="token_symbol">{asset.symbol}</span>
                       <span className="token_price" style={{ color: "green" }}>
-                        <FetchDexTokenPrice
-                          token_address={asset.token_address}
-                          token_balance="false"
+                        <GetPrice
+                          prices={tokenPrices}
+                          address={asset.token_address}
                         />
                       </span>
                     </div>
@@ -69,12 +50,12 @@ const Holdings = () => {
                       ).toLocaleString()}
                     </div>
                     <div className="token_value" style={{ color: "green" }}>
-                      <FetchDexTokenPrice
+                      {/* <FetchDexTokenPrice
                         token_address={asset.token_address}
                         token_balance={parseFloat(
                           Moralis?.Units?.FromWei(asset.balance, asset.decimals)
                         )}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
