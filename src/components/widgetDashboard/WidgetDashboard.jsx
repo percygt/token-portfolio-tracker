@@ -6,7 +6,7 @@ import { useCoingecko } from "../../hooks/useCoingecko";
 import Widget from "../../components/widgets/Widget";
 
 const WidgetDashboard = () => {
-  const [coins, fetchGeckoResponse] = useCoingecko([]);
+  const [coins] = useCoingecko([]);
   return (
     <>
       <Swiper

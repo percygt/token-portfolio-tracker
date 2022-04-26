@@ -5,8 +5,9 @@ import {
   useMoralisWeb3ApiCall,
 } from "react-moralis";
 
-export const useTokenBalance = (initialValue) => {
-  const [assets, setAssets] = useState(initialValue);
+export const useTokenBalance = () => {
+  const [assets, setAssets] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const Web3Api = useMoralisWeb3Api();
   const {
     Moralis,
@@ -15,30 +16,37 @@ export const useTokenBalance = (initialValue) => {
     isAuthenticated,
     isInitialized,
   } = useMoralis();
-  const { fetch } = useMoralisWeb3ApiCall(Web3Api.account.getTokenBalances, {
-    chain: chainId,
-  });
-  const fetchResponse = useCallback(async () => {
-    try {
-      const response = await fetch();
-      console.log("fetching balance from moralis...");
-      if (!response) return [];
-      return response;
-    } catch (err) {
-      console.log(err.stack);
+  const { fetch, data, error } = useMoralisWeb3ApiCall(
+    Web3Api.account.getTokenBalances,
+    {
+      chain: chainId,
     }
+  );
+  useEffect(() => {
+    let isMounted = true;
+    const fetchResponse = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch();
+        console.log("fetching balance from moralis...");
+        if (isMounted) {
+          if (!response) setAssets([]);
+          else setAssets(response);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setAssets([]);
+          console.log(err.stack);
+        }
+      } finally {
+        isMounted && setIsLoading(false);
+      }
+    };
+    fetchResponse();
+    return () => {
+      isMounted = false;
+    };
   }, [fetch]);
 
-  useEffect(() => {
-    async function fetchAssets() {
-      await fetchResponse().then((balance) => {
-        setAssets(balance);
-      });
-    }
-    if (isInitialized) {
-      fetchAssets();
-    }
-  }, [fetchResponse]);
-
-  return [assets, fetchResponse, isInitialized];
+  return [assets, isLoading];
 };

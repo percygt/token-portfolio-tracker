@@ -6,36 +6,36 @@ export const useDexPrice = () => {
   const [priceData, setPriceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchDexResponse = useCallback(async (tokenAddresses) => {
-    const prices = Promise.all(
-      tokenAddresses.map(async (tokenAddress) => {
-        try {
-          const response = await axios.get(
-            `https://api.pancakeswap.info/api/v2/tokens/${tokenAddress}`
-          );
-          const tokenData = response.data.data;
-          console.log("fetching data from DEX...");
-          if (!response) return [];
-          return { tokenData, tokenAddress };
-        } catch (err) {
-          const tokenData = { price: "0", price_BNB: "0" };
-          return { tokenData, tokenAddress };
-        }
-      })
-    );
-
-    return prices;
-  }, []);
-  // const tokenPrices = useMemo(() => price, []);
   useEffect(() => {
     let isMounted = true;
     const source = axios.CancelToken.source();
+    setIsLoading(true);
+    const getDataPrices = async (tokenAddresses) =>
+      Promise.all(
+        tokenAddresses.map(async (tokenAddress) => {
+          try {
+            console.log("fetching data from DEX...");
+            const response = await axios.get(
+              `https://api.pancakeswap.info/api/v2/tokens/${tokenAddress}`,
+              { cancelToken: source.token }
+            );
+            const tokenData = response.data.data;
+            if (isMounted) {
+              return Object.assign(tokenData, { token_address: tokenAddress });
+            }
+          } catch (err) {
+            const tokenData = { price: "0", price_BNB: "0" };
+            if (isMounted) {
+              return Object.assign(tokenData, { token_address: tokenAddress });
+            }
+          }
+        })
+      );
+
     async function fetchAssets() {
-      setIsLoading(true);
-      const tokenPriceData = await fetchDexResponse(addresses);
-      if (isMounted) {
-        setPriceData(tokenPriceData);
-      }
+      const tokenPriceData = await getDataPrices(addresses);
+      setPriceData(tokenPriceData);
+      // console.log(tokenPriceData);
       isMounted && setIsLoading(false);
     }
     fetchAssets();
@@ -44,6 +44,6 @@ export const useDexPrice = () => {
       isMounted = false;
       source.cancel();
     };
-  }, [fetchDexResponse, addresses]);
-  return [priceData, setAddresses, isLoading];
+  }, [addresses]);
+  return [priceData, setAddresses];
 };
