@@ -4,8 +4,10 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import { useState, useEffect } from "react";
 import { valueToPercent } from "@mui/base";
 import { useCoingecko } from "../../hooks/useCoingecko";
+import { useMoralis } from "react-moralis";
 
 const Balance = ({ masterData }) => {
+  const { Moralis, account: walletAddress, isAuthenticated } = useMoralis();
   const [totalToken, setTotaltoken] = useState();
   const [coins, isLoading] = useCoingecko();
   const [btcBal, setBtcBal] = useState("");
@@ -31,29 +33,26 @@ const Balance = ({ masterData }) => {
 
   return (
     <div className="balance_detail">
-      <div className="balance_label">Balance Detail</div>
+      <div className="balance_label">Balance</div>
       <div className="balance_content">
         <div className="top">
-          <div className="left">
-            <div className="balance_total_label">Total:</div>
-            <div className="balance_total_usd">
-              ${parseFloat(totalToken).toLocaleString()}
-            </div>
-            <div className="balance_total_btc">
-              {parseFloat(btcBal).toLocaleString()} <span>BTC</span>
-            </div>
-          </div>
-          <div className="right">
-            <a href="#pancakeswap" className="swap">
-              <SwapHorizIcon style={{ fontSize: "4rem" }} />
-            </a>
-          </div>
+          <div className="balance_total_label">Total Wallet Balance:</div>
+          {!masterData || !walletAddress || !isAuthenticated ? (
+            "Loading..."
+          ) : (
+            <>
+              <div className="balance_total_usd">
+                ${parseFloat(totalToken).toLocaleString()}
+              </div>
+              <div className="balance_total_btc">
+                {parseFloat(btcBal).toLocaleString()} <span>BTC</span>
+              </div>
+            </>
+          )}
         </div>
         <div className="bottom">
-          <div className="transact">
-            <div className="receive btn">Receive</div>
-            <div className="send btn">Send</div>
-          </div>
+          <div className="receiveBtn">Receive</div>
+          <div className="sendBtn">Send</div>
         </div>
       </div>
     </div>

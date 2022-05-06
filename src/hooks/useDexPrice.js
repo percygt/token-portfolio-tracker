@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 export const useDexPrice = () => {
   const [addresses, setAddresses] = useState([]);

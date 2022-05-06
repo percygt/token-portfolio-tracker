@@ -29,8 +29,8 @@
     .main__container {
       margin: 1rem;
       display: grid;
-      grid-template-columns: 2fr 2fr 1fr;
-      grid-template-rows: 23rem calc(100vh - 42rem);
+      grid-template-columns: 2fr 2fr 2fr;
+      grid-template-rows: 18rem calc(100vh - 38rem);
       gap: 1rem;
       height: calc(100vh - 18rem);
       > * {

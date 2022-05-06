@@ -1,53 +1,56 @@
 .balance_detail {
-  height: 23rem;
+  font-size: 0.9rem;
   .balance_content {
-    color: rgb(255, 255, 255);
-    gap: 2rem;
-    font-size: 1rem;
-    margin: 1rem;
+    margin-top: 1rem;
+    padding: 0 1rem 0 1rem;
     .top {
+      color: white;
       display: flex;
-      padding: 0 0 2rem;
-      .left {
-        background-color: rgb(7, 12, 42);
-        border-radius: 1rem;
-        padding: 0.5rem 1rem;
-        width: 50%;
-        .balance_total_label {
-          color: gray;
-        }
-        .balance_total_usd {
-          font-size: 1.5rem;
-          margin-left: 1rem;
-        }
-        .balance_total_btc {
-          font-size: 1rem;
-          margin-left: 1rem;
-        }
-      }
-      .right {
-        display: flex;
-        width: 50%;
-        justify-content: center;
-        .swap {
-          color: rgb(223, 209, 209);
-          margin-top: 1rem;
-        }
-        .swap:hover {
-          color: black;
-        }
+      flex-direction: column;
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      height: 7rem;
+      border-radius: 0.6rem 0.6rem 0 0;
+      background-color: var(--transw);
+      padding: 1rem;
+      .balance_total_usd {
+        font-size: 1rem;
+        font-weight: 600;
       }
     }
     .bottom {
-      text-align: center;
-      justify-content: center;
-      gap: 1rem;
-      .transact {
+      display: flex;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      height: 5rem;
+      .receiveBtn {
         display: flex;
-        gap: 0.5rem;
-
-        > * {
-          width: 50%;
+        background-color: rgb(63, 83, 126);
+        border-bottom-left-radius: 0.6rem;
+        width: calc(50%);
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.02);
+          color: rgb(171, 235, 162);
+          transition: var(--transition);
+        }
+      }
+      .sendBtn {
+        display: flex;
+        background-color: rgb(30, 22, 63);
+        border-bottom-right-radius: 0.6rem;
+        width: calc(50%);
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.02);
+          color: rgb(171, 235, 162);
+          transition: var(--transition);
         }
       }
     }

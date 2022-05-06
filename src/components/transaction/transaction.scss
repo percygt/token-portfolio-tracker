@@ -1,0 +1,40 @@
+.transaction {
+  height: calc(100vh - 38rem);
+
+  table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    thead {
+      font-size: 0.9rem;
+      div {
+        align-items: top;
+        justify-content: center;
+        height: 2.5rem;
+        width: 100%;
+        display: flex;
+      }
+    }
+    tbody {
+      width: 100%;
+      overflow: hidden scroll;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      .transfer_content {
+        display: flex;
+        width: 100%;
+        display: flex;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        background-color: var(--transw);
+        padding: 0.3rem;
+        div {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

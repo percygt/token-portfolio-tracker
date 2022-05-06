@@ -5,14 +5,20 @@ import {
   useMoralisWeb3ApiCall,
 } from "react-moralis";
 
-export const useTokenBalance = () => {
-  const [assets, setAssets] = useState([]);
+export const useNativeTransactions = () => {
+  const [transfers, setTransfers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const Web3Api = useMoralisWeb3Api();
-  const { chainId } = useMoralis();
-  const { fetch } = useMoralisWeb3ApiCall(Web3Api.account.getTokenBalances, {
-    chain: chainId,
-  });
+  const { isInitialized, account: walletAddress, chainId } = useMoralis();
+  const { fetch, data } = useMoralisWeb3ApiCall(
+    Web3Api.account.getTokenTransfers,
+    {
+      address: walletAddress,
+      chain: chainId,
+      limit: 10,
+      // cursor: cursor,
+    }
+  );
   useEffect(() => {
     let isMounted = true;
     const fetchResponse = async () => {
@@ -20,13 +26,14 @@ export const useTokenBalance = () => {
       try {
         const response = await fetch();
         console.log("fetching balance from moralis...");
+
         if (isMounted) {
-          if (!response) setAssets([]);
-          else setAssets(response);
+          if (!response) setTransfers([]);
+          else setTransfers(response?.result);
         }
       } catch (err) {
         if (isMounted) {
-          setAssets([]);
+          setTransfers([]);
           console.log(err.stack);
         }
       } finally {
@@ -37,7 +44,7 @@ export const useTokenBalance = () => {
     return () => {
       isMounted = false;
     };
-  }, [fetch]);
+  }, [fetch, chainId, isInitialized, walletAddress]);
 
-  return [assets, isLoading];
+  return [transfers, isLoading, chainId];
 };

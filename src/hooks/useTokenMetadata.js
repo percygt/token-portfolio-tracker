@@ -5,39 +5,46 @@ import {
   useMoralisWeb3ApiCall,
 } from "react-moralis";
 
-export const useTokenBalance = () => {
-  const [assets, setAssets] = useState([]);
+export const useTokenMetadata = () => {
+  // console.log(address);
+  const [metadata, setMetadata] = useState([]);
+  const [address, setAddress] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const Web3Api = useMoralisWeb3Api();
   const { chainId } = useMoralis();
-  const { fetch } = useMoralisWeb3ApiCall(Web3Api.account.getTokenBalances, {
+  const { fetch } = useMoralisWeb3ApiCall(Web3Api.token.getTokenMetadata, {
     chain: chainId,
+    addresses: address,
   });
+  // const options = {
+  //   chain: chainId,
+  //   addresses: address,
+  // };
   useEffect(() => {
     let isMounted = true;
     const fetchResponse = async () => {
       setIsLoading(true);
       try {
         const response = await fetch();
-        console.log("fetching balance from moralis...");
+
         if (isMounted) {
-          if (!response) setAssets([]);
-          else setAssets(response);
+          if (!response) setMetadata([]);
+          else setMetadata(response);
         }
       } catch (err) {
         if (isMounted) {
-          setAssets([]);
+          setMetadata([]);
           console.log(err.stack);
         }
       } finally {
         isMounted && setIsLoading(false);
       }
     };
+
     fetchResponse();
     return () => {
       isMounted = false;
     };
   }, [fetch]);
-
-  return [assets, isLoading];
+  return [metadata, setAddress];
 };
