@@ -15,6 +15,7 @@
     "@web3auth/web3auth": "^0.9.3",
     "ansi-html": ">=0.0.8",
     "antd": "^4.20.2",
+    "async": ">=2.6.4",
     "axios": "^0.26.1",
     "date-fns": "^2.28.0",
     "ityped": "^1.0.3",
@@ -32,8 +33,7 @@
     "styled-components": "^5.3.5",
     "svg": "^0.1.0",
     "swiper": "^8.1.4",
-    "web-vitals": "^2.1.4",
-    "async": ">=2.6.4"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
