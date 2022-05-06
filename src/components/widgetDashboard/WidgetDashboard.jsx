@@ -1,7 +1,16 @@
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+// import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+// import { Mousewheel, Pagination } from "swiper";
+// import "swiper/swiper-bundle.min.css";
+// import "swiper/modules/navigation/navigation.scss";
 import { Mousewheel, Pagination } from "swiper";
-import "swiper/swiper-bundle.min.css";
-import "swiper/modules/navigation/navigation.scss";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import { useCoingecko } from "../../hooks/useCoingecko";
 import Widget from "../../components/widgets/Widget";
 
