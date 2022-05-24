@@ -6,6 +6,7 @@ import { useTokenBalance } from "../../hooks/useTokenBalance";
 import { useEffect, useState } from "react";
 import { useDexPrice } from "../../hooks/useDexPrice";
 import { useMoralis } from "react-moralis";
+import Chart from "../walletChart/Chart";
 
 const TokenDasboard = () => {
   const [assets] = useTokenBalance([]);
@@ -64,9 +65,10 @@ const TokenDasboard = () => {
 
   return (
     <>
+      <Chart />
       <Holdings masterData={masterData} />
-      <Balance masterData={masterData} />
-      <Watchlist />
+      {/* <Balance masterData={masterData} /> */}
+      {/* <Watchlist /> */}
       <Transaction />
     </>
   );

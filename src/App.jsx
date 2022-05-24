@@ -7,6 +7,7 @@ import About from "./pages/about/About";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 const App = ({ isServerInfo }) => {
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =

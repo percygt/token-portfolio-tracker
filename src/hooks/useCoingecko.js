@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const useCoingecko = () => {
+export const useCoingecko = (url) => {
   const [coins, setCoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -11,14 +11,12 @@ export const useCoingecko = () => {
     const fetchGeckoResponse = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h",
-          { cancelToken: source.token }
-        );
+        const response = await axios.get(url, { cancelToken: source.token });
         console.log("fetching data from CoinGecko...");
 
         if (isMounted) {
-          if (!response) setCoins([]);
+          if (Array.isArray(response.data && response.data.length))
+            setCoins([]);
           else setCoins(response.data);
         }
         // return response;
