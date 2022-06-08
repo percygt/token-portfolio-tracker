@@ -15,9 +15,8 @@ export const useCoingecko = (url) => {
         console.log("fetching data from CoinGecko...");
 
         if (isMounted) {
-          if (Array.isArray(response.data && response.data.length))
-            setCoins([]);
-          else setCoins(response.data);
+          if (Array.isArray(response.data) && response.data.length)
+            setCoins(response.data);
         }
         // return response;
       } catch (err) {
@@ -32,7 +31,7 @@ export const useCoingecko = (url) => {
       isMounted = false;
       source.cancel();
     };
-  }, []);
+  }, [url]);
 
   return [coins, isLoading];
 };

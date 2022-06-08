@@ -5,24 +5,31 @@ import {
   useMoralisWeb3ApiCall,
 } from "react-moralis";
 
+import { getWrappedNative } from "../helpers/networks";
+
 export const useTokenBalance = () => {
   const [assets, setAssets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const Web3Api = useMoralisWeb3Api();
-  const { chainId } = useMoralis();
+  const { account: walletAddress, isAuthenticated, chainId } = useMoralis();
+
+  // const { data: nativeBalance, nativeToken } = useNativeBalance();
   const { fetch } = useMoralisWeb3ApiCall(Web3Api.account.getTokenBalances, {
     chain: chainId,
   });
+
   useEffect(() => {
     let isMounted = true;
     const fetchResponse = async () => {
       setIsLoading(true);
       try {
         const response = await fetch();
-        console.log("fetching balance from moralis...");
         if (isMounted) {
-          if (!response) setAssets([]);
-          else setAssets(response);
+          const checkArray =
+            Array.isArray(response) && response.length ? true : false;
+          if (checkArray) {
+            setAssets(response);
+          }
         }
       } catch (err) {
         if (isMounted) {
@@ -37,7 +44,7 @@ export const useTokenBalance = () => {
     return () => {
       isMounted = false;
     };
-  }, [fetch]);
+  }, [fetch, walletAddress]);
 
   return [assets, isLoading];
 };

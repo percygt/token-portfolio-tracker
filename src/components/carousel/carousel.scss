@@ -1,62 +1,74 @@
-.widget {
-  display: flex;
-  padding: 1rem;
-
-  justify-content: space-between;
-  border-left: 1px solid var(--transw);
+.carousel {
+  background-image: linear-gradient(
+    to right,
+    var(--bg),
+    var(--bg2),
+    var(--bg2),
+    var(--bg)
+  );
+  padding: 0.5rem 0;
   &:hover {
-    background-color: var(--white);
-    color: var(--black);
+    background-image: linear-gradient(
+      to right,
+      var(--bg),
+      var(--light),
+      var(--light),
+      var(--bg)
+    );
   }
-  .left {
+  .widget {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 50%;
-    gap: 0.1rem;
-    .token__symbol {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      .c_icon {
-        height: 0.75rem;
-        margin-right: 0.5rem;
-      }
-    }
-    .token__name {
-      font-size: 0.6rem;
-      color: gray;
-    }
-  }
-
-  .right {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-
-    gap: 0.1rem;
-    .token__price {
+    padding: 0.2rem 1rem;
+    justify-content: space-between;
+    border-left: var(--border);
+    cursor: pointer;
+    .left {
       display: flex;
-      font-size: 0.8rem;
-      justify-content: flex-end;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 50%;
+      gap: 0.1rem;
+      .token__symbol {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        .c_icon {
+          height: 0.75rem;
+          margin-right: 0.5rem;
+        }
+      }
+      .token__name {
+        font-size: 0.6rem;
+        color: gray;
+      }
     }
-    .token__24hChange {
+    .right {
+      width: 50%;
       display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      font-size: 0.7rem;
-      height: 1rem;
-      &.positive {
-        color: green;
-      }
-      &.negative {
-        color: red;
-      }
-      .arrow_icon {
+      flex-direction: column;
+      gap: 0.1rem;
+      .token__price {
         display: flex;
-
-        left: 2rem;
-        top: -0.5rem;
-        font-size: 2rem;
+        font-size: 0.8rem;
+        justify-content: flex-end;
+      }
+      .token__24hChange {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 0.7rem;
+        height: 1rem;
+        &.positive {
+          color: green;
+        }
+        &.negative {
+          color: red;
+        }
+        .arrow_icon {
+          display: flex;
+          left: 2rem;
+          top: -0.5rem;
+          font-size: 2rem;
+        }
       }
     }
   }

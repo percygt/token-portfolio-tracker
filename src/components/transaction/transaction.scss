@@ -1,38 +1,69 @@
 .transaction {
-  // height: calc(100vh - 38rem);
-
+  height: 100%;
+  display: flex;
+  margin: 1rem;
+  flex-direction: column;
+  .transaction_label {
+    font-size: var(--m);
+    color: var(--grey1);
+  }
+  ::-webkit-scrollbar {
+    width: 3px;
+    background-color: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: var(--light);
+    &:hover {
+      background-color: var(--grey1);
+    }
+  }
   table {
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
+    overflow: hidden;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: var(--sm);
     thead {
-      font-size: 0.9rem;
-      div {
-        align-items: top;
-        justify-content: center;
-        height: 2.5rem;
-        width: 100%;
+      tr {
         display: flex;
+        align-items: center;
+        th {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          height: 1.75rem;
+          justify-content: center;
+          font-size: var(--xsm);
+        }
+        th ~ th {
+          border-left: var(--border);
+        }
       }
     }
     tbody {
-      width: 100%;
-      overflow: hidden scroll;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      .transfer_content {
+      overflow-y: scroll;
+
+      tr {
         display: flex;
-        width: 100%;
-        display: flex;
+        margin: 0.25rem 0;
+        background-color: var(--light);
         border-radius: 0.5rem;
-        font-size: 0.9rem;
-        background-color: var(--transw);
-        padding: 0.3rem;
-        div {
-          width: 100%;
+        padding: 0.4rem 0;
+        border-top: var(--border);
+        cursor: pointer;
+        &:hover {
+          background-color: var(--bg2);
+          color: var(--grey2);
+        }
+        td {
           display: flex;
+          width: 100%;
           justify-content: center;
+          font-size: var(--sm);
         }
       }
     }

@@ -16,10 +16,7 @@ export const useTokenMetadata = () => {
     chain: chainId,
     addresses: address,
   });
-  // const options = {
-  //   chain: chainId,
-  //   addresses: address,
-  // };
+
   useEffect(() => {
     let isMounted = true;
     const fetchResponse = async () => {
@@ -28,8 +25,7 @@ export const useTokenMetadata = () => {
         const response = await fetch();
 
         if (isMounted) {
-          if (!response) setMetadata([]);
-          else setMetadata(response);
+          if (Array.isArray(response) && response.length) setMetadata(response);
         }
       } catch (err) {
         if (isMounted) {

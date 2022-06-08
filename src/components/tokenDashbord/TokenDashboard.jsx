@@ -1,76 +1,145 @@
-import Holdings from "../holdings/Holdings";
-import Balance from "../balance/Balance";
-import Watchlist from "../watchlist/Watchlist";
-import Transaction from "../transaction/Transaction";
 import { useTokenBalance } from "../../hooks/useTokenBalance";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useDexPrice } from "../../hooks/useDexPrice";
-import { useMoralis } from "react-moralis";
-import Chart from "../walletChart/Chart";
+import { useMoralis, useNativeBalance } from "react-moralis";
+import { useNativeBalanceCustom } from "../../hooks/useNativeBalanceCustom";
+
+import { CryptoState } from "../../CryptoContext";
+import "./tokenDashboard.scss";
+import { Dashboard } from "./Dashboard";
 
 const TokenDasboard = () => {
-  const [assets] = useTokenBalance([]);
+  const [assets] = useTokenBalance();
+  const [filteredAssets, setFilteredfilteredAssets] = useState([]);
+  const { setMasterData, starredToken, removedToken } = CryptoState();
   const [priceData, setAddresses] = useDexPrice();
-  const [masterData, setMasterData] = useState([]);
-  const { Moralis } = useMoralis();
+  const { Moralis, chainId, account: walletAddress } = useMoralis();
+  const [contWidth, setContWidth] = useState(100);
+  const [contHeight, setContHeight] = useState(100);
+  const [height, setHeight] = useState(20);
+  const contRef = useRef();
+  const { nativeToken } = useNativeBalance();
+  const { asset } = useNativeBalanceCustom();
+  useEffect(() => {
+    contHeight < 630 ? setHeight(25) : setHeight(30);
+  }, [contHeight]);
 
   useEffect(() => {
-    const dataAcc = priceData.map((price) => {
-      let val = [];
-      if (price !== undefined) {
-        assets.map((asset) => {
-          if (
-            asset !== undefined &&
-            price.token_address === asset.token_address
-          ) {
-            val = { ...price, ...asset };
-          }
-          return null;
-        });
-      }
-      return val;
-    });
-    // console.log("dataAcc", dataAcc);
-    const assetsData = Object.fromEntries(
-      dataAcc.map((data) => [data.token_address, data])
-    );
-    const assetsObj = Object.keys(assetsData)?.map((key, index) => {
+    const getFilterefToken = async () => {
       if (
-        assetsData[key].balance !== undefined &&
-        assetsData[key].decimals !== undefined
+        Array.isArray(assets) &&
+        assets[0]?.token_address &&
+        asset?.balance &&
+        nativeToken?.decimals
+          ? true
+          : false
       ) {
-        const balanceFrWei = Moralis?.Units?.FromWei(
-          assetsData[key].balance,
-          assetsData[key].decimals
-        );
-        const value = assetsData[key].price * balanceFrWei;
-        assetsData[key]["value"] = value;
-        // console.log(assetsData[key]);
-        return assetsData[key];
+        const fullBalance = [
+          {
+            token_address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            balance: asset.balance,
+            decimals: nativeToken.decimals,
+            name: nativeToken.name,
+            symbol: nativeToken.symbol,
+          },
+          ...assets,
+        ];
+        let tempArray = [];
+        if (Array.isArray(fullBalance) && fullBalance[0]?.token_address) {
+          await fullBalance?.forEach((data) => {
+            if (!removedToken.includes(data.token_address))
+              tempArray = [...tempArray, data];
+          });
+          if (tempArray.length && tempArray[0]?.token_address ? true : false) {
+            setFilteredfilteredAssets(tempArray);
+          }
+        }
       }
+    };
+    getFilterefToken();
+  }, [removedToken, nativeToken, asset, assets]);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((event) => {
+      setContWidth(event[0].contentBoxSize[0].inlineSize);
+      setContHeight(event[0].contentBoxSize[0].blockSize);
     });
-    // console.log(assetsObj);
-    setMasterData(assetsData);
-  }, [assets, priceData, Moralis?.Units]);
+
+    if (contRef) {
+      resizeObserver.observe(contRef.current);
+    }
+  }, [contRef]);
+  useEffect(() => {
+    let checkArray =
+      Array.isArray(priceData) &&
+      Array.isArray(filteredAssets) &&
+      priceData.length &&
+      filteredAssets.length &&
+      priceData[0]?.token_address &&
+      filteredAssets[0]?.token_address
+        ? true
+        : false;
+    if (checkArray) {
+      const combinedData = filteredAssets.map((asset, i) => {
+        let x = 255 / filteredAssets.length;
+        let mult = i + 1;
+        let r = 150 - x * mult;
+        let g = 150 - (x * mult) / 4;
+        let b = 150;
+        let rgb = `rgb(${r},${g},${b})`;
+        const includeData = priceData.filter(
+          (data) => data?.token_address == asset?.token_address
+        );
+        let newData = { ...asset, ...includeData[0] };
+        const balanceFrWei = Moralis?.Units?.FromWei(
+          newData.balance,
+          newData.decimals
+        );
+        const value = newData.price * balanceFrWei;
+        newData.value = value;
+        newData.balance = balanceFrWei;
+        newData.color = rgb;
+        starredToken?.includes(newData.token_address)
+          ? (newData.starred = true)
+          : (newData.starred = false);
+        return newData;
+      });
+      if (chainId !== "0x61") {
+        const pureData = combinedData.filter(
+          (data) => parseFloat(data.price).toLocaleString() != 0
+        );
+        setMasterData(pureData);
+      } else {
+        setMasterData(combinedData);
+      }
+    }
+  }, [filteredAssets, priceData, starredToken, chainId]);
 
   useEffect(() => {
     async function getAddress() {
-      const tokenAddresses = await assets?.map((asset) => {
-        return asset.token_address;
-      });
-      tokenAddresses && setAddresses(tokenAddresses);
+      let checkArray =
+        Array.isArray(filteredAssets) &&
+        filteredAssets.length &&
+        filteredAssets[0]?.token_address
+          ? true
+          : false;
+      if (checkArray) {
+        const tokenAddresses = filteredAssets?.map((asset) => {
+          return asset.token_address;
+        });
+        tokenAddresses && setAddresses(tokenAddresses);
+      }
     }
     getAddress();
-  }, [assets, setAddresses]);
+  }, [setAddresses, filteredAssets]);
 
   return (
-    <>
-      <Chart />
-      <Holdings masterData={masterData} />
-      {/* <Balance masterData={masterData} /> */}
-      {/* <Watchlist /> */}
-      <Transaction />
-    </>
+    <Dashboard
+      contRef={contRef}
+      height={height}
+      contHeight={contHeight}
+      contWidth={contWidth}
+    />
   );
 };
 

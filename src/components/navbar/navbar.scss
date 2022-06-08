@@ -2,17 +2,63 @@
   margin-top: 0.4rem;
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  color: #555;
+  font-size: var(--sm);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
-  .connect_btn {
+  .items {
     display: flex;
+    gap: 1rem;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    .item {
+      .currency-dropdown {
+        position: relative;
+        width: 4rem;
+        user-select: none;
+        .currency-dropdown-button {
+          font-weight: 600;
+          padding-top: 0.1rem;
+          height: 2rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.2rem;
+          border-radius: var(--br);
+          border: var(--border);
+          cursor: pointer;
+        }
+        .currency-dropdown-content {
+          width: 100%;
+          position: absolute;
+          top: 30%;
+          color: white;
+          background-color: var(--grey2);
+          border-radius: var(--br);
+          padding: 0.1rem;
+          z-index: 99;
+          transition: var(--transition);
+          .currency-dropdown-item {
+            display: flex;
+            height: 2rem;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            &:hover {
+              background-color: var(--light);
+            }
+          }
+        }
+      }
+      .connect_btn {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        gap: 0.5rem;
+        width: 10rem;
+      }
+    }
   }
 }

@@ -1,11 +1,10 @@
 import React from "react";
 import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
 import CircleRoundedIcon from "@mui/icons-material/CircleRounded";
 import { useMoralis } from "react-moralis";
+import { MdOutlineArrowDropDown } from "react-icons/md";
+import { useState } from "react";
+import { CryptoState } from "../../CryptoContext";
 
 const Navbar = () => {
   const {
@@ -16,6 +15,9 @@ const Navbar = () => {
     account,
     logout,
   } = useMoralis();
+  const [isActive, setIsActive] = useState(false);
+  const { currency, setCurrency } = CryptoState();
+  const options = ["USD", "PHP"];
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -38,6 +40,38 @@ const Navbar = () => {
     <div>
       <div className="navbar">
         <div className="items">
+          <div className="item">
+            {typeof currency !== "string" ||
+            typeof setCurrency !== "function" ? (
+              []
+            ) : (
+              <div className="currency-dropdown">
+                <div
+                  className="currency-dropdown-button"
+                  onClick={(e) => setIsActive(!isActive)}
+                >
+                  {currency}
+                  <MdOutlineArrowDropDown />
+                </div>
+                {isActive && (
+                  <div className="currency-dropdown-content">
+                    {options.map((option, index) => (
+                      <div
+                        key={index}
+                        className="currency-dropdown-item"
+                        onClick={(e) => {
+                          setCurrency(option);
+                          setIsActive(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
           {!isAuthenticated ? (
             <div className="item">
               <div className="btn connect_btn" onClick={login}>
@@ -47,18 +81,11 @@ const Navbar = () => {
           ) : (
             <div className="item">
               <div
-                className="btn btn-variant connect_btn"
+                className="btn-drk connect_btn"
                 onClick={logOut}
                 disabled={isAuthenticating}
               >
                 Connected
-                <CircleRoundedIcon
-                  style={{
-                    color: "lightGreen",
-                    border: "2px solid var(--transb)",
-                    borderRadius: "1rem",
-                  }}
-                />
               </div>
             </div>
           )}

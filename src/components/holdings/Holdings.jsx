@@ -1,53 +1,170 @@
 import "./holdings.scss";
 import { useMoralis } from "react-moralis";
+import { CryptoState } from "../../CryptoContext";
+import DeleteIcon from "@mui/icons-material/Delete";
+import StarIcon from "@mui/icons-material/Star";
+import { useState, useEffect } from "react";
+import { getRoundDown } from "../../helpers/formatters";
+import { getWrappedNative } from "../../helpers/networks";
 
-const Holdings = ({ masterData }) => {
-  const { Moralis, account: walletAddress, isAuthenticated } = useMoralis();
+const Holdings = ({ contWidth, contHeight }) => {
+  const {
+    masterData,
+    symbol,
+    conversion,
+    removedToken,
+    setRemovedToken,
+    starredToken,
+    setStarredToken,
+    asset,
+    setAsset,
+    nativeAddress,
+  } = CryptoState();
+  const { account: walletAddress, isAuthenticated } = useMoralis();
+  const [onHover, setOnHover] = useState(null);
+  const [search, setSearch] = useState("");
+  const [height, setHeight] = useState(20);
+  const [width, setWidth] = useState(29);
+  const { chainId } = useMoralis();
+
+  useEffect(() => {
+    setAsset(masterData[0]);
+  }, [masterData]);
+
+  useEffect(() => {
+    contWidth < 1090 ? setWidth(18) : setWidth(20);
+    contHeight < 630 ? setHeight(23) : setHeight(26.5);
+    // contHeight >= 400 ? setHeight(20) : setHeight(17);
+  }, [contHeight, contWidth]);
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleClickStar = (d) => {
+    if (starredToken.includes(d)) {
+      setStarredToken([...starredToken.filter((val) => val !== d)]);
+    } else setStarredToken([...starredToken, d]);
+  };
+
+  const handleClickTrash = (d) => {
+    setRemovedToken([...removedToken, d]);
+  };
+
+  const filteredToken = masterData.filter(
+    (data) =>
+      data.name.toLowerCase().includes(search.toLowerCase()) ||
+      data.symbol.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="holdings">
+    <div
+      className="holdings"
+      style={{ height: `${height}rem `, width: `${width}rem ` }}
+    >
       <div className="holdings_label">Holdings</div>
+      {/* <form>
+        <SearchIcon className="holdings_search_icon" />
+        <input
+          type="text"
+          placeholder="Search"
+          className="holdings_search"
+          onChange={handleChange}
+        />
+      </form> */}
+
       <div className="wallet">
-        {!masterData || !walletAddress || !isAuthenticated
-          ? "Loading..."
-          : Object.keys(masterData)?.map((key, index) => {
-              return (
-                <div className="wallet_content" key={key}>
-                  <div className="left">
+        {/* <Native></Native> */}
+        {/* <div className="scroll_me">scroll down</div> */}
+        {isNaN(conversion) ||
+        typeof symbol !== "string" ||
+        !masterData.length ||
+        !walletAddress ||
+        !isAuthenticated ? (
+          <div className="wallet_content no_data_to_show">No Data to show</div>
+        ) : (
+          filteredToken.map((data) => {
+            return (
+              <div
+                className="wallet_content"
+                key={data.token_address}
+                onMouseOver={(e) => {
+                  data.token_address === nativeAddress
+                    ? setOnHover(null)
+                    : setOnHover(data.token_address);
+                }}
+                onMouseLeave={(e) => {
+                  setOnHover(null);
+                }}
+                onClick={(e) => {
+                  setAsset(data);
+                }}
+                style={
+                  asset &&
+                  asset.token_address === data.token_address.toLowerCase()
+                    ? { backgroundColor: "var(--light)" }
+                    : { backgroundColor: "var(--bg2)" }
+                }
+              >
+                <div className="left wallet_content_item">
+                  <StarIcon
+                    className="wallet_icon"
+                    onClick={(e) => handleClickStar(data.token_address)}
+                    style={
+                      onHover === data.token_address
+                        ? data.starred
+                          ? {
+                              display: "flex",
+                              marginRight: "1rem",
+                              color: "yellow",
+                            }
+                          : {
+                              display: "flex",
+                              marginRight: "1rem",
+                            }
+                        : { display: "none" }
+                    }
+                  />
+                  <div className="token_symbol_price_name">
                     <div className="token_symbol_price">
-                      <div className="token_symbol">
-                        {masterData[key].symbol}
+                      <div className="token_symbol wallet_item">
+                        {data.symbol}
                       </div>
-                      <div className="token_price" style={{ color: "green" }}>
-                        ${parseFloat(masterData[key].price).toLocaleString()}
+                      <div className="token_price wallet_item">
+                        {symbol}
+                        {getRoundDown(data.price * conversion)}
                       </div>
                     </div>
-                    <div className="token_name">{masterData[key].name}</div>
-                  </div>
-                  <div className="right">
-                    <div className="token_amount">
-                      {parseFloat(
-                        Moralis?.Units?.FromWei(
-                          masterData[key].balance,
-                          masterData[key].decimals
-                        )
-                      ).toLocaleString()}
-                    </div>
-                    <div className="token_value" style={{ color: "green" }}>
-                      ${masterData[key].value.toLocaleString()}
-                      {/* {(
-                        parseFloat(
-                          Moralis?.Units?.FromWei(
-                            masterData[key].balance,
-                            masterData[key].decimals
-                          )
-                        ) * parseFloat(masterData[key].price)
-                      ).toLocaleString()} */}
-                    </div>
+
+                    <div className="token_name wallet_item">{data.name}</div>
                   </div>
                 </div>
-              );
-            })}
+
+                <div className="right wallet_content_item">
+                  <div className="token_amount_wallet">
+                    <div className="token_amount wallet_item">
+                      {getRoundDown(data.balance)}
+                    </div>
+                    <div className="token_value wallet_item">
+                      {symbol}
+                      {parseFloat(data.value * conversion).toLocaleString()}
+                    </div>
+                  </div>
+
+                  <DeleteIcon
+                    className="wallet_icon"
+                    style={
+                      onHover === data.token_address
+                        ? { display: "flex", marginLeft: "1rem" }
+                        : { display: "none" }
+                    }
+                    onClick={(e) => handleClickTrash(data.token_address)}
+                  />
+                </div>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

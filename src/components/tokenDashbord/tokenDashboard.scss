@@ -1,0 +1,32 @@
+.dashboard {
+  max-height: 100%;
+  position: relative;
+
+  .dashboard_top {
+    position: absolute;
+    height: 30rem;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border: var(--border);
+    // border-top: var(--border);
+    align-items: center;
+    .dashboard_left {
+      width: 100%;
+      display: flex;
+    }
+    .dashboard_right {
+      background-color: var(--light);
+      display: flex;
+      padding: 0 1rem;
+      margin-right: 1rem;
+      border-radius: 1rem;
+    }
+  }
+  .dashboard_bottom {
+    top: 31rem;
+    height: calc(100% - 31rem);
+    position: absolute;
+    width: 100%;
+  }
+}

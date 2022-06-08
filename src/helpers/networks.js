@@ -7,10 +7,12 @@ export const networkConfigs = {
   "0x3": {
     currencySymbol: "ETH",
     blockExplorerUrl: "https://ropsten.etherscan.io/",
+    wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   "0x4": {
     currencySymbol: "ETH",
     blockExplorerUrl: "https://rinkeby.etherscan.io/",
+    wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   "0x2a": {
     currencySymbol: "ETH",
@@ -19,12 +21,14 @@ export const networkConfigs = {
   "0x5": {
     currencySymbol: "ETH",
     blockExplorerUrl: "https://goerli.etherscan.io/",
+    wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   "0x539": {
     chainName: "Local Chain",
     currencyName: "ETH",
     currencySymbol: "ETH",
     rpcUrl: "http://127.0.0.1:7545",
+    wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   "0xa86a": {
     chainId: 43114,
@@ -50,6 +54,7 @@ export const networkConfigs = {
     currencySymbol: "BNB",
     rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
     blockExplorerUrl: "https://testnet.bscscan.com/",
+    wrapped: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
   },
   "0x89": {
     chainId: 137,
@@ -67,6 +72,7 @@ export const networkConfigs = {
     currencySymbol: "MATIC",
     rpcUrl: "https://rpc-mumbai.matic.today/",
     blockExplorerUrl: "https://mumbai.polygonscan.com/",
+    wrapped: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
   },
 };
 

@@ -1,7 +1,7 @@
 import "./transaction.scss";
 import { useNativeTransactions } from "../../hooks/useNativeTransactions";
-import { useMemo, useEffect, useState } from "react";
-import { getEllipsisTxt } from "../../helpers/formatters";
+import { useEffect, useState } from "react";
+import { getEllipsisTxt, getEllipsisTxtRight } from "../../helpers/formatters";
 import { getExplorer } from "../../helpers/networks";
 import { useMoralis } from "react-moralis";
 import { format } from "date-fns";
@@ -45,7 +45,7 @@ const FetchTokenName = ({ data, address }) => {
     }
   }
 
-  return <>{getEllipsisTxt(name, 6)}</>;
+  return <>{getEllipsisTxtRight(name, 25)}</>;
 };
 const TokenAmountValue = ({ priceData, address, data, value }) => {
   const { Moralis } = useMoralis();
@@ -61,9 +61,15 @@ const TokenAmountValue = ({ priceData, address, data, value }) => {
         return null;
       });
     }
-    if (priceData !== undefined) {
+    if (
+      Array.isArray(priceData) &&
+      priceData.length &&
+      priceData[0]?.token_address
+        ? true
+        : false
+    ) {
       priceData.map((e) => {
-        if (e.token_address !== undefined && address === e.token_address) {
+        if (address === e?.token_address) {
           price = parseFloat(e.price);
         }
         return null;
@@ -90,80 +96,107 @@ const Transaction = () => {
     const filteredTransferAddress = [...transferSet];
     setAddress(filteredTransferAddress);
     setAddresses(filteredTransferAddress);
-    console.log(priceData);
+
     if (metadata !== undefined && metadata.length !== 0) {
       setFilteredTokenData(metadata);
     }
   }, [transfers, metadata]);
 
   return (
-    <div className="transaction grid-col-span-2">
+    <div className="transaction">
+      <div className="transaction_label">Transactions</div>
       <table>
         <thead>
-          <div>
-            <div>Token</div>
-            <div>From</div>
-            <div>To</div>
-            <div>Amount</div>
-            <div>Value</div>
-            <div>Date</div>
-            <div>Tx Hash</div>
-          </div>
+          <tr>
+            <th>Token</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Value</th>
+            <th>Date</th>
+            <th>Tx Hash</th>
+          </tr>
         </thead>
-
-        <tbody>
-          {!transfers || !walletAddress || !isAuthenticated
-            ? "Loading..."
-            : transfers.map((transfer, index) => (
-                <div key={index} className="transfer_content">
-                  <div>
-                    <FetchTokenName
-                      data={filteredTokenData}
-                      address={transfer.address}
-                    />
-                  </div>
-                  <div>
-                    {user.get("ethAddress") === transfer.from_address
-                      ? "You"
-                      : getEllipsisTxt(transfer.from_address, 5)}
-                  </div>
-                  <div>
-                    {user.get("ethAddress") === transfer.to_address
-                      ? "You"
-                      : getEllipsisTxt(transfer.to_address, 5)}
-                  </div>
-                  <div>
-                    <FetchConvertedValue
-                      data={filteredTokenData}
-                      address={transfer.address}
-                      value={transfer.value}
-                    />
-                  </div>
-                  <div>
-                    {/* <TokenAmountValue
-                      priceData={priceData}
-                      address={transfer.address}
-                      data={filteredTokenData}
-                      value={transfer.value}
-                    /> */}
-                  </div>
-                  <div>
-                    {format(new Date(transfer.block_timestamp), "dd MMM yyyy")}
-                  </div>
-                  <div>
-                    <a
-                      href={`${getExplorer(chainId)}tx/${
-                        transfer.transaction_hash
-                      }`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View
-                    </a>
-                  </div>
-                </div>
-              ))}
-        </tbody>
+        {!transfers || !walletAddress || !isAuthenticated ? (
+          <tbody>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+            <tr>
+              <td>Loading..</td>
+            </tr>
+          </tbody>
+        ) : (
+          <tbody>
+            {transfers.map((transfer, index) => (
+              <tr key={index} className="transfer_content">
+                <td className="tx_token_name">
+                  <FetchTokenName
+                    data={filteredTokenData}
+                    address={transfer.address}
+                  />
+                </td>
+                <td className="tx_from_address">
+                  {user.get("ethAddress") === transfer.from_address
+                    ? "You"
+                    : getEllipsisTxt(transfer.from_address, 5)}
+                </td>
+                <td className="tx_to_address">
+                  {user.get("ethAddress") === transfer.to_address
+                    ? "You"
+                    : getEllipsisTxt(transfer.to_address, 5)}
+                </td>
+                <td className="tx_amount">
+                  <FetchConvertedValue
+                    data={filteredTokenData}
+                    address={transfer.address}
+                    value={transfer.value}
+                  />
+                </td>
+                <td>
+                  <TokenAmountValue
+                    priceData={priceData}
+                    address={transfer.address}
+                    data={filteredTokenData}
+                    value={transfer.value}
+                  />
+                </td>
+                <td className="tx_date">
+                  {format(new Date(transfer.block_timestamp), "dd MMM yyyy")}
+                </td>
+                <td className="tx_hash">
+                  <a
+                    href={`${getExplorer(chainId)}tx/${
+                      transfer.transaction_hash
+                    }`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
     </div>
   );

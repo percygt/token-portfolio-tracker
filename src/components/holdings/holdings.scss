@@ -1,75 +1,160 @@
 .holdings {
+  margin: 1rem 0;
   font-size: 0.9rem;
-  height: 18rem;
-  min-width: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.25rem;
+  // border-left: var(--border);
+  // border-right: var(--border);
+  border-radius: 1rem;
+  padding: 1rem 0.5rem;
+  ::-webkit-scrollbar {
+    width: 3px;
+    background-color: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: var(--bg2);
+    &:hover {
+      background-color: var(--grey1);
+    }
+  }
+  .holdings_label {
+    font-size: var(--m);
+    color: var(--grey1);
+  }
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--m);
+    background-color: var(--bg);
+    border-radius: 0.2rem;
+    border: var(--border);
+    color: var(--tx-clr);
+    .holdings_search_icon {
+      margin: 0 0.5rem;
+      font-size: 1rem;
+    }
+    .holdings_search {
+      background-color: var(--bg);
+      width: 15rem;
+      height: 2rem;
+      color: var(--tx-clr);
+      .watchlist_add_content {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
 
   .wallet {
-    // background-color: var(--transw);
-    margin-top: 1rem;
-    padding: 0 1rem;
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
+    width: 100%;
+    padding: 0 0.3rem 0 0.5rem;
     overflow: hidden scroll;
-    height: 12rem;
-    border-radius: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .scroll_me {
+      font-size: var(--sm);
+      position: absolute;
+      top: calc(50%);
+      left: 26.3rem;
+      transform: rotate(90deg);
+      width: 6rem;
+      color: var(--bg2);
+    }
+    .no_data_to_show {
+      font-size: var(--sm);
+      justify-content: center !important;
+      align-items: center;
+    }
     .wallet_content {
+      padding: 0.5rem 1rem;
+      width: 100%;
+      border-top: var(--border);
       cursor: pointer;
       display: flex;
       margin-bottom: 0.25rem;
-      background-color: rgb(37, 37, 97);
-      border-radius: 0.5rem;
-      > * {
-        width: calc(50%);
-        margin: 0.25rem 1rem;
-      }
-      &:hover {
-        transform: scale(1.05);
-        background-color: var(--transw);
-        transition: var(--transition);
+      // background-color: var(--bg2);
+      align-items: center;
+      border-radius: 0.2rem;
+      justify-content: space-between;
+      align-items: center;
+      .wallet_item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .left {
+        width: 60%;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        .token_symbol_price {
-          display: inline-flex;
-          align-items: center;
-
-          .token_symbol {
-            font-size: 0.75rem;
-            max-width: 5rem;
-            display: inline-block;
+        align-items: center;
+        .token_symbol_price_name {
+          width: 100%;
+          .token_symbol_price {
+            display: flex;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
 
-            margin-right: 0.5rem;
+            .token_symbol {
+              max-width: 4rem;
+              font-size: var(--m);
+            }
+            .token_price {
+              font-size: var(--xsm);
+            }
           }
-          .token_price {
-            font-size: 0.75rem;
-            max-width: 8rem;
-            display: inline-block;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
+          .token_name {
+            max-width: 100%;
+            font-size: var(--xsm);
+            color: var(--grey1);
           }
-        }
-        .token_name {
-          font-size: 0.65rem;
-          color: gray;
         }
       }
       .right {
+        border-left: var(--border);
+        width: 40%;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        .token_value {
-          font-size: 0.65rem;
+        justify-content: flex-end;
+        align-items: center;
+        .token_amount_wallet {
+          width: 100%;
+          .token_amount {
+            display: flex;
+            justify-content: flex-end;
+
+            font-size: var(--m);
+          }
+          .token_value {
+            display: flex;
+            justify-content: flex-end;
+            font-size: var(--xsm);
+            color: var(--grey1);
+          }
         }
-        .token_amount {
-          font-size: 0.75rem;
+        .wallet_action_icons {
+          gap: 1rem;
+          align-items: center;
         }
+      }
+
+      &:hover {
+        transform: scale(1.01);
+        background-color: var(--light);
+        transition: var(--transition);
+        // color: var(--bg) !important;
       }
     }
   }
 }
+// .wallet_icon {
+//   font-size: 0.1rem;
+//   height: 0.2rem;
+// }

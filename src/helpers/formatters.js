@@ -29,6 +29,30 @@ export const getEllipsisTxt = (str, n = 6) => {
   return "";
 };
 
+export const getEllipsisTxtRight = (str, n = 10) => {
+  if (str.length > n) {
+    return `${str.slice(0, n)}...`;
+  }
+  return str;
+};
+
+export const getRoundDown = (s) => {
+  let str = Math.floor(s).toString();
+
+  if (str.length === 6) {
+    return `0.${str.slice(0, 1)} M`;
+  } else if (str.length >= 7 && str.length <= 9) {
+    if (str.slice(1, 2) == 0 && str.slice(2, 3, 2) == 0) {
+      return `${str.slice(0, 1)} M`;
+    } else {
+      return `${str.slice(0, 1)}.${str.slice(1, 3)} M`;
+    }
+  } else if (str.length >= 10 && str.length <= 12) {
+    return `${str.slice(0, 1)}.${str.slice(1, 3)} B`;
+  }
+  return parseFloat(s).toLocaleString();
+};
+
 export const tokenValue = (value, decimals) =>
   decimals ? value / Math.pow(10, decimals) : value;
 

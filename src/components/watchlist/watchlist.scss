@@ -1,29 +1,175 @@
 .watchlist {
+  width: 14rem;
+  position: relative;
+  .watchlist_label {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--m);
+    color: var(--grey1);
+  }
+  ::-webkit-scrollbar {
+    width: 3px;
+    background-color: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: var(--bg2);
+    &:hover {
+      background-color: var(--grey1);
+    }
+  }
+  .watchlist_add {
+    top: 4rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 9999;
+    .watchlist_add_icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2rem;
+      width: 2rem;
+      border-radius: 1rem;
+      background-color: var(--bg2);
+      color: var(--bg);
+      &:hover {
+        transform: scale(1.01);
+        background-color: var(--bg);
+        color: var(--bg2);
+        transition: var(--transition);
+      }
+    }
+    .watchlist_add_searchbar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .watch_search {
+        display: flex;
+        border-radius: 0.2rem;
+        border: var(--border);
+        height: 2rem;
+        background-color: var(--bg);
+        font-size: var(--xsm);
+        width: 11rem;
+        color: var(--tx-clr);
+        padding-left: 0.5rem;
+      }
+      .watchlist_add_content {
+        margin-top: 0.2rem;
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        overflow: hidden scroll;
+        max-height: 10rem;
+        background-color: var(--bg);
+        color: var(--tx-clr);
+        z-index: 9999;
+        border: var(--border);
+
+        > * {
+          margin: 0.2rem;
+          padding: 0.2rem 0.5rem;
+          font-size: var(--sm);
+          border-top: var(--border);
+          border-radius: 0.3rem;
+          cursor: pointer;
+          &:hover {
+            background-color: var(--grey1);
+          }
+        }
+      }
+    }
+  }
   .watchlist_container {
-    margin-top: 1rem;
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
     overflow: hidden scroll;
-    height: calc(100vh - 24rem);
+    top: 8rem;
+    position: absolute;
+    margin-top: 0.25rem;
+    border-top: var(--border);
+    width: 100%;
+    padding: 0.2rem 0.3rem 0 0.5rem;
+    height: calc(100vh - 12rem);
+
+    .no_data_to_show {
+      font-size: var(--sm);
+    }
     .watchlist_content {
+      .watchlist_from {
+        color: var(--grey1);
+        position: absolute;
+        font-size: var(--xxsm);
+        top: 0.1rem;
+        right: 0.2rem;
+        // border: var(--border);
+        // background-color: var(--grey2);
+        // border-radius: 0.2rem;
+        padding: 0 0.2rem;
+      }
+      .watch_item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      padding: 0.75rem 0.7rem 0.6rem;
+      width: 100%;
+      border-top: var(--border);
+      cursor: pointer;
       display: flex;
       margin-bottom: 0.25rem;
-      background-color: rgb(37, 37, 97);
-      border-radius: 0.5rem;
-      > * {
-        width: 50%;
-        margin: 0.25rem 0.5rem;
-      }
+      background-color: var(--bg2);
+      align-items: center;
+      border-radius: 0.2rem;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
       .left {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        .token_symbol {
+          font-size: var(--sm);
+        }
         .token_name {
-          font-size: 0.75rem;
-          color: gray;
+          font-size: var(--xsm);
+          color: var(--grey1);
         }
       }
       .right {
-        .token_24h_change {
+        border-left: var(--border);
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        // .token_24h_change {
+        //   font-size: 0.75rem;
+        //   color: rgb(197, 14, 14);
+        // }
+        .token_price {
+          font-size: var(--m);
+        }
+      }
+      &:hover {
+        transform: scale(1.01);
+        background-color: var(--light);
+        transition: var(--transition);
+      }
+      .watch_remove_icon {
+        position: absolute;
+        top: -0.15rem;
+        right: -0.1rem;
+        color: var(--bg);
+        z-index: 999;
+        > * {
           font-size: 0.75rem;
-          color: rgb(197, 14, 14);
+        }
+        &:hover {
+          transform: scale(1.1);
+          border: var(--border2);
         }
       }
     }
