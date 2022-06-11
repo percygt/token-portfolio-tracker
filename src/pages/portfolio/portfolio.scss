@@ -1,50 +1,23 @@
-.portfolio {
-  height: 100vh;
-  display: flex;
-  width: 100%;
-  .portfolio__container {
-    width: calc(100% - 30rem);
-    margin-left: 15rem;
-    border-right: var(--border);
-    .navbar__container {
-      padding: 0.5rem 1rem 1rem;
+.dashboard {
+  .dashboard_top {
+    height: 30rem;
+    display: flex;
+    justify-content: flex-end;
+    border: var(--border);
+    align-items: center;
+    .dashboard_left {
+      width: 100%;
+      display: flex;
     }
-    .widgets__container {
-      border-top: var(--border);
-      border-bottom: var(--border);
-      margin: 0 1rem;
-    }
-    .main__container {
-      margin: 1rem;
-      display: grid;
-      gap: 1rem;
-      height: calc(100vh - 11rem);
+    .dashboard_right {
+      background-color: var(--light);
+      display: flex;
+      padding: 0 1rem;
+      margin-right: 1rem;
+      border-radius: 1rem;
     }
   }
-}
-@media screen and (max-width: 1024px) {
-  .portfolio {
-    .portfolio__container {
-      width: calc(100% - 5rem);
-      margin-left: 5rem;
-    }
+  .dashboard_bottom {
+    height: calc(100vh - 42rem);
   }
 }
-
-// @media screen and (max-width: 600px) {
-//   .app .sections {
-//     scroll-snap-type: none;
-//   }
-//   .app .sections > section {
-//     height: auto;
-//     margin-bottom: 0;
-//   }
-//   .app .sections > * h2 {
-//     margin: 1rem 0;
-//   }
-//   .app .container {
-//     width: var(--container-width-sm);
-//     padding: 0;
-//     margin: 0 auto;
-//   }
-// }

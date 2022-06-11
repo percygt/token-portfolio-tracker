@@ -1,15 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import "./carousel.scss";
 import { useCoingecko } from "../../hooks/useCoingecko";
 import { CoinList } from "../../config/api";
-import { CryptoState } from "../../CryptoContext";
+import { TopState } from "../../context/TopContext";
 
 const Carousel = () => {
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol } = TopState();
   const [coins, isLoading] = useCoingecko(CoinList(currency));
   const items =
     typeof currency !== "string" || typeof symbol !== "string" || !coins.length

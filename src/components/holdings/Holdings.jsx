@@ -1,25 +1,23 @@
 import "./holdings.scss";
 import { useMoralis } from "react-moralis";
-import { CryptoState } from "../../CryptoContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import StarIcon from "@mui/icons-material/Star";
 import { useState, useEffect } from "react";
 import { getRoundDown } from "../../helpers/formatters";
 import { getWrappedNative } from "../../helpers/networks";
+import { TopState } from "../../context/TopContext";
+import { PortfolioState } from "../../context/PortfolioContext";
 
 const Holdings = ({ contWidth, contHeight }) => {
   const {
     masterData,
-    symbol,
-    conversion,
     removedToken,
     setRemovedToken,
-    starredToken,
-    setStarredToken,
     asset,
     setAsset,
     nativeAddress,
-  } = CryptoState();
+  } = PortfolioState();
+  const { symbol, conversion, starredToken, setStarredToken } = TopState();
   const { account: walletAddress, isAuthenticated } = useMoralis();
   const [onHover, setOnHover] = useState(null);
   const [search, setSearch] = useState("");

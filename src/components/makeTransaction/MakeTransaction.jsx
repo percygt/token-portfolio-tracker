@@ -1,10 +1,12 @@
 import "./makeTransaction.scss";
 import { useState, useEffect } from "react";
-import { CryptoState } from "../../CryptoContext";
+import { PortfolioState } from "../../context/PortfolioContext";
+import { TopState } from "../../context/TopContext";
 import { useMoralis } from "react-moralis";
 
 const MakeTransaction = ({ contWidth, contHeight }) => {
-  const { asset, nativeAddress, conversion, symbol } = CryptoState();
+  const { asset } = PortfolioState();
+  const { conversion, symbol } = TopState();
   const [height, setHeight] = useState(20);
   const { Moralis } = useMoralis();
   const [width, setWidth] = useState(29);

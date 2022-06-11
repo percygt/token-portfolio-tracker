@@ -18,7 +18,7 @@ const CryptoContext = ({ children }) => {
   const { chainId } = useMoralis();
   const nativeAddress = getWrappedNative(chainId)?.toLowerCase();
   const [asset, setAsset] = useState({ token_address: nativeAddress });
-  console.log(masterData);
+
   useEffect(() => {
     if (currency === "USD") setSymbol("$");
     else if (currency === "PHP") setSymbol("₱");

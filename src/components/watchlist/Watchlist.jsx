@@ -2,7 +2,7 @@ import "./watchlist.scss";
 import { useMoralis } from "react-moralis";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
-import { CryptoState } from "../../CryptoContext";
+import { TopState } from "../../context/TopContext";
 import { useState, useEffect } from "react";
 import { getRoundDown } from "../../helpers/formatters";
 import { useDexPrice } from "../../hooks/useDexPrice";
@@ -12,14 +12,13 @@ import { getWrappedNative, getNativeByChain } from "../../helpers/networks";
 const Watchlist = () => {
   const {
     currency,
-
     symbol,
     conversion,
     starredToken,
     setStarredToken,
     watchCG,
     setWatchCG,
-  } = CryptoState();
+  } = TopState();
   const [search, setSearch] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [watchlist, setWatchlist] = useState([]);

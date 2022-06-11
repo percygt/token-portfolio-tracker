@@ -1,8 +1,8 @@
 .transaction {
-  height: 100%;
   display: flex;
   margin: 1rem;
   flex-direction: column;
+  height: 100%;
   .transaction_label {
     font-size: var(--m);
     color: var(--grey1);
