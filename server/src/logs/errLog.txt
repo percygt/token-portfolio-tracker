@@ -1,0 +1,2 @@
+20220615	02:29:18	8fb14aad-0712-4c55-a69f-f15315b54f34	Error: Not allowed by CORS
+20220615	03:19:45	ba0632a8-a0fe-48c0-890e-1bff4021f1bf	Error: ENOENT: no such file or directory, stat 'C:\Users\percy\Desktop\New Code\token-portfolio-tracker\server\src\views\404.html'

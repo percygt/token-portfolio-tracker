@@ -1,4 +1,7 @@
 .sidebar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   .top {
     height: 4rem;
     display: flex;
@@ -13,33 +16,54 @@
   .bottom {
     display: flex;
     flex-flow: column wrap;
-    gap: 1rem;
+    // gap: 1rem;
 
     .link {
       display: flex;
-      padding: 0.5rem 2.5rem;
+      margin-right: 0.5rem;
+      padding: 0.75rem 3.5rem;
       color: var(--grey2);
       gap: 0.6rem;
       font-size: 1.1rem;
-      border-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
       align-items: center;
       cursor: pointer;
+      position: relative;
       &:hover {
         background-color: var(--light);
         color: var(--tx-clr);
-        transition: var(--transition);
       }
       &.active {
-        color: var(--tx-clr);
+        color: var(--highlight);
+        background-color: var(--bg);
+        -webkit-box-shadow: inset 0px 0px 97px -62px rgba(0, 0, 0, 1);
+        -moz-box-shadow: inset 0px 0px 97px -62px rgba(0, 0, 0, 1);
+        box-shadow: inset 0px 0px 97px -62px rgba(0, 0, 0, 1);
+        &::before {
+          top: 0px;
+          left: 0px;
+          width: 4px;
+          bottom: 0px;
+          content: "";
+          display: block;
+          position: absolute;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+          background-color: rgb(254, 219, 0);
+        }
+        &:hover {
+          background-color: var(--light);
+        }
       }
     }
   }
-  .bottom {
-    padding: 1rem;
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-  }
+  // .bottom {
+  //   padding: 1rem;
+  //   margin-top: auto;
+  //   display: flex;
+  //   flex-direction: column;
+  // }
 }
 
 .hidden {

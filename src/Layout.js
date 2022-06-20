@@ -4,22 +4,25 @@ import SidebarRight from "./components/sidebar/SidebarRight";
 import SidebarLeft from "./components/sidebar/SidebarLeft";
 import Carousel from "./components/carousel/Carousel";
 import PortfolioContext from "./context/PortfolioContext";
+import MainContext from "./context/MainContent";
 
 const Layout = () => {
   return (
-    <div className="App">
-      <SidebarLeft />
-      <div className="main">
-        <Navbar />
-        <Carousel />
-        <div className="content">
-          <PortfolioContext>
-            <Outlet />
-          </PortfolioContext>
+    <MainContext>
+      <div className="App">
+        <SidebarLeft />
+        <div className="main">
+          <Navbar />
+          <Carousel />
+          <div className="content">
+            <PortfolioContext>
+              <Outlet />
+            </PortfolioContext>
+          </div>
         </div>
+        <SidebarRight />
       </div>
-      <SidebarRight />
-    </div>
+    </MainContext>
   );
 };
 

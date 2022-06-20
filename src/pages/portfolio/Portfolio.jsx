@@ -1,21 +1,23 @@
 import React from "react";
 import "./portfolio.scss";
-import { useTokenBalance } from "../../hooks/useTokenBalance";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useDexPrice } from "../../hooks/useDexPrice";
 import { useMoralis, useNativeBalance } from "react-moralis";
 import { useNativeBalanceCustom } from "../../hooks/useNativeBalanceCustom";
 import { PortfolioState } from "../../context/PortfolioContext";
-import { TopState } from "../../context/TopContext";
 import { Dashboard } from "./Dashboard";
+import { useErc20Balance } from "../../hooks/useErc20Balance";
+import { MainState } from "../../context/MainContent";
+// import { TopState } from "../../context/TopContext";
 
 const Portfolio = () => {
-  const [assets] = useTokenBalance();
+  const { Moralis, chainId, account: walletAddress } = useMoralis();
+  const { assets } = useErc20Balance(walletAddress, chainId);
   const [filteredAssets, setFilteredfilteredAssets] = useState([]);
   const { setMasterData, removedToken } = PortfolioState();
-  const { starredToken } = TopState();
+  const { starredToken } = MainState();
+
   const [priceData, setAddresses] = useDexPrice();
-  const { Moralis, chainId, account: walletAddress } = useMoralis();
   const [contWidth, setContWidth] = useState(100);
   const [contHeight, setContHeight] = useState(100);
   const [height, setHeight] = useState(20);

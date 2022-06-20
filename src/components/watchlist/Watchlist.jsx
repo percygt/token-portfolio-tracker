@@ -3,6 +3,7 @@ import { useMoralis } from "react-moralis";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { TopState } from "../../context/TopContext";
+import { MainState } from "../../context/MainContent";
 import { useState, useEffect } from "react";
 import { getRoundDown } from "../../helpers/formatters";
 import { useDexPrice } from "../../hooks/useDexPrice";
@@ -10,15 +11,8 @@ import { useCoingecko } from "../../hooks/useCoingecko";
 import { CoinList } from "../../config/api";
 import { getWrappedNative, getNativeByChain } from "../../helpers/networks";
 const Watchlist = () => {
-  const {
-    currency,
-    symbol,
-    conversion,
-    starredToken,
-    setStarredToken,
-    watchCG,
-    setWatchCG,
-  } = TopState();
+  const { currency, symbol, conversion } = TopState();
+  const { starredToken, setStarredToken, watchCG, setWatchCG } = MainState();
   const [search, setSearch] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [watchlist, setWatchlist] = useState([]);
@@ -49,7 +43,6 @@ const Watchlist = () => {
     setSearch("");
     setIsActive(false);
   };
-  useEffect(() => {}, [nativeAddress, starredToken]);
   useEffect(() => {
     const getWatchToken = async () => {
       let tempArray = [];
@@ -129,11 +122,11 @@ const Watchlist = () => {
             No Data to show
           </div>
         ) : (
-          watchlist.map((watch) => {
+          watchlist.map((watch, index) => {
             return (
               <div
                 className="watchlist_content watch_item"
-                key={watch.symbol}
+                key={index}
                 onMouseOver={(e) => {
                   watch.token_address === nativeAddress
                     ? setOnHover(null)

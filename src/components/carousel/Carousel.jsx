@@ -5,10 +5,18 @@ import "./carousel.scss";
 import { useCoingecko } from "../../hooks/useCoingecko";
 import { CoinList } from "../../config/api";
 import { TopState } from "../../context/TopContext";
+import { useMemo } from "react";
 
 const Carousel = () => {
   const { currency, symbol } = TopState();
   const [coins, isLoading] = useCoingecko(CoinList(currency));
+  console.log(currency);
+  console.log(symbol);
+  console.log(coins);
+
+  // const curr = useMemo(currency, currency);
+  // const sym = useMemo(symbol, currency);
+
   const items =
     typeof currency !== "string" || typeof symbol !== "string" || !coins.length
       ? []
@@ -34,12 +42,12 @@ const Carousel = () => {
               {coin.price_change_percentage_24h < 0 ? (
                 <div className="token__24hChange negative">
                   <ArrowDropDownRoundedIcon className="arrow_icon" />
-                  {coin.price_change_percentage_24h.toFixed(2)}%
+                  {Number(coin.price_change_percentage_24h).toFixed(2)}%
                 </div>
               ) : (
                 <div className="token__24hChange positive">
                   <ArrowDropUpRoundedIcon className="arrow_icon" />
-                  {coin.price_change_percentage_24h.toFixed(2)}%
+                  {Number(coin.price_change_percentage_24h).toFixed(2)}%
                 </div>
               )}
               {/* <div className="market_cap">Mkt Cap: ${coin.marketcap}</div> */}

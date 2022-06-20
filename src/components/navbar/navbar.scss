@@ -6,12 +6,11 @@
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
-
+  padding: 0 1rem;
   .items {
     display: flex;
     gap: 1rem;
     align-items: center;
-
     .currency-dropdown {
       position: relative;
       width: 4rem;
@@ -25,7 +24,7 @@
         align-items: center;
         gap: 0.2rem;
         border-radius: var(--br);
-        border: var(--border);
+        border: 1px solid var(--light);
         cursor: pointer;
       }
       .currency-dropdown-content {
@@ -33,7 +32,8 @@
         position: absolute;
         top: 30%;
         color: white;
-        background-color: var(--grey2);
+        background-color: var(--bg2);
+        border: 1px solid var(--light);
         border-radius: var(--br);
         padding: 0.1rem;
         z-index: 99;
@@ -70,17 +70,18 @@
   align-items: center;
   width: max-content;
   display: flex;
-  background-color: var(--bg2);
-  color: var(--grey1);
+  background-color: var(--light);
+  color: var(--tx-clr);
   padding: 0.5rem 0.6rem;
   border-radius: 0.8rem;
   cursor: pointer;
   transition: var(--transition);
-  border: var(--border2);
+  border: 1px solid var(--highlight);
+
   &:hover {
-    background-color: var(--light);
-    color: var(--grey1);
-    border: var(--border);
+    background-color: var(--highlight);
+    color: var(--bg2);
+    border: 1px solid var(--light);
   }
 }
 .btn-drk {
@@ -92,16 +93,16 @@
   align-items: center;
   width: max-content;
   display: flex;
-  background-color: var(--light);
-  color: var(--grey1);
+  background-color: var(--highlight);
+  color: var(--bg2);
+  border: 1px solid var(--light);
   padding: 0.5rem 0.6rem;
   border-radius: 0.8rem;
   cursor: pointer;
   transition: var(--transition);
-  border: var(--border);
   &:hover {
-    background-color: var(--bg2);
-    color: var(--grey1);
-    border: var(--border2);
+    background-color: var(--light);
+    color: var(--tx-clr);
+    border: 1px solid var(--highlight);
   }
 }

@@ -1,50 +1,51 @@
+import { Transfers } from "../config/api";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  useMoralis,
-  useMoralisWeb3Api,
-  useMoralisWeb3ApiCall,
-} from "react-moralis";
 
-export const useNativeTransactions = () => {
+export const useNativeTransactions = (address, chainId) => {
   const [transfers, setTransfers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const Web3Api = useMoralisWeb3Api();
-  const { isInitialized, account: walletAddress, chainId } = useMoralis();
-  const { fetch, data } = useMoralisWeb3ApiCall(
-    Web3Api.account.getTokenTransfers,
-    {
-      address: walletAddress,
-      chain: chainId,
-      limit: 50,
-      // cursor: cursor,
-    }
-  );
+  const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
   useEffect(() => {
     let isMounted = true;
-    const fetchResponse = async () => {
+    const source = axios.CancelToken.source();
+    const transactionResponse = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch();
-        console.log("fetching balance from moralis...");
+        const baseURL = Transfers(address);
+        const options = {
+          params: { chain: chainId },
+          headers: {
+            accept: "application/json",
+            "X-API-Key": API_KEY,
+          },
+        };
+
+        const response = await axios.get(baseURL, options, {
+          cancelToken: source.token,
+        });
 
         if (isMounted) {
-          if (!response) setTransfers([]);
-          else setTransfers(response?.result);
+          if (
+            Array.isArray(response?.data?.result) &&
+            response?.data?.result?.length
+          )
+            setTransfers(response?.data?.result);
         }
+        // return response;
       } catch (err) {
-        if (isMounted) {
-          setTransfers([]);
-          console.log(err.stack);
-        }
+        if (isMounted) setTransfers([]);
+        console.log(err.stack);
       } finally {
         isMounted && setIsLoading(false);
       }
     };
-    fetchResponse();
+    transactionResponse();
     return () => {
       isMounted = false;
+      source.cancel();
     };
-  }, [fetch, chainId, isInitialized, walletAddress]);
+  }, [address, chainId]);
 
-  return [transfers, isLoading, chainId];
+  return { transfers, isLoading };
 };

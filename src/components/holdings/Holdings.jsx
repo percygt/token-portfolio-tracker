@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getRoundDown } from "../../helpers/formatters";
 import { getWrappedNative } from "../../helpers/networks";
 import { TopState } from "../../context/TopContext";
+import { MainState } from "../../context/MainContent";
 import { PortfolioState } from "../../context/PortfolioContext";
 
 const Holdings = ({ contWidth, contHeight }) => {
@@ -17,13 +18,13 @@ const Holdings = ({ contWidth, contHeight }) => {
     setAsset,
     nativeAddress,
   } = PortfolioState();
-  const { symbol, conversion, starredToken, setStarredToken } = TopState();
+  const { symbol, conversion } = TopState();
+  const { starredToken, setStarredToken } = MainState();
   const { account: walletAddress, isAuthenticated } = useMoralis();
   const [onHover, setOnHover] = useState(null);
   const [search, setSearch] = useState("");
   const [height, setHeight] = useState(20);
   const [width, setWidth] = useState(29);
-  const { chainId } = useMoralis();
 
   useEffect(() => {
     setAsset(masterData[0]);
@@ -58,7 +59,7 @@ const Holdings = ({ contWidth, contHeight }) => {
   return (
     <div
       className="holdings"
-      style={{ height: `${height}rem `, width: `${width}rem ` }}
+      // style={{ height: `${height}rem `, width: `${width}rem ` }}
     >
       <div className="holdings_label">Holdings</div>
       {/* <form>
@@ -72,8 +73,6 @@ const Holdings = ({ contWidth, contHeight }) => {
       </form> */}
 
       <div className="wallet">
-        {/* <Native></Native> */}
-        {/* <div className="scroll_me">scroll down</div> */}
         {isNaN(conversion) ||
         typeof symbol !== "string" ||
         !masterData.length ||

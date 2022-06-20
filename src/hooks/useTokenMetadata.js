@@ -1,46 +1,55 @@
+import { Metadata } from "../config/api";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  useMoralis,
-  useMoralisWeb3Api,
-  useMoralisWeb3ApiCall,
-} from "react-moralis";
 
-export const useTokenMetadata = () => {
+export const useTokenMetadata = (metaAddr, chainId) => {
   // console.log(address);
   const [metadata, setMetadata] = useState([]);
-  const [address, setAddress] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const Web3Api = useMoralisWeb3Api();
-  const { chainId } = useMoralis();
-  const { fetch } = useMoralisWeb3ApiCall(Web3Api.token.getTokenMetadata, {
-    chain: chainId,
-    addresses: address,
-  });
-
+  const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
   useEffect(() => {
     let isMounted = true;
-    const fetchResponse = async () => {
+    const source = axios.CancelToken.source();
+    const metadataResponse = async () => {
       setIsLoading(true);
-      try {
-        const response = await fetch();
+      if (Array.isArray(metaAddr) && metaAddr.length) {
+        try {
+          const baseURL = Metadata();
+          const params = new URLSearchParams();
+          params.append("chain", chainId);
+          metaAddr.forEach((addr) => {
+            params.append("addresses", addr);
+          });
 
-        if (isMounted) {
-          if (Array.isArray(response) && response.length) setMetadata(response);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setMetadata([]);
+          const options = {
+            params: params,
+            headers: {
+              accept: "application/json",
+              "X-API-Key": API_KEY,
+            },
+          };
+
+          const response = await axios.get(baseURL, options, {
+            cancelToken: source.token,
+          });
+          console.log(chainId);
+          if (isMounted) {
+            if (Array.isArray(response?.data) && response?.data?.length)
+              setMetadata(response?.data);
+          }
+        } catch (err) {
+          if (isMounted) setMetadata([]);
           console.log(err.stack);
+        } finally {
+          isMounted && setIsLoading(false);
         }
-      } finally {
-        isMounted && setIsLoading(false);
       }
     };
 
-    fetchResponse();
+    metadataResponse();
     return () => {
       isMounted = false;
     };
-  }, [fetch]);
-  return [metadata, setAddress];
+  }, [metaAddr, chainId]);
+  return { metadata };
 };

@@ -5,7 +5,7 @@ import Portfolio from "./pages/portfolio/Portfolio";
 import Swap from "./pages/swap/Swap";
 import Tools from "./pages/tools/Tools";
 import About from "./pages/about/About";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -21,12 +21,13 @@ const App = ({ isServerInfo }) => {
     isWeb3EnableLoading,
     account: walletAddress,
   } = useMoralis();
-
+  const [wallet, setWallet] = useState(walletAddress);
   useEffect(() => {
     const connectorId = window.localStorage.getItem("connectorId");
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
       enableWeb3({ provider: connectorId });
   }, [isAuthenticated, isWeb3Enabled]);
+
   return (
     <TopContext>
       <Router>

@@ -12,8 +12,9 @@ const FetchConvertedValue = ({ data, address, value }) => {
   const { Moralis } = useMoralis();
   let decimals = 1;
   let symbol = "";
-  if (address.length !== 0 && address !== undefined) {
-    if (data.length !== 0 && data !== undefined) {
+
+  if (address) {
+    if (Array.isArray(data) && data?.length && data[0]?.decimals) {
       data.map((obj) => {
         if (address === obj.address) {
           decimals = obj.decimals;
@@ -34,8 +35,8 @@ const FetchConvertedValue = ({ data, address, value }) => {
 
 const FetchTokenName = ({ data, address }) => {
   let name = "";
-  if (address.length !== 0 && address !== undefined) {
-    if (data.length !== 0 && data !== undefined) {
+  if (address) {
+    if (Array.isArray(data) && data?.length && data[0]?.decimals) {
       data.map((obj) => {
         if (address === obj.address) {
           name = obj.name;
@@ -52,8 +53,8 @@ const TokenAmountValue = ({ priceData, address, data, value }) => {
   let price = 0;
   let amount = 0;
   let priceAmount = 0;
-  if (address.length !== 0 && address !== undefined) {
-    if (data.length !== 0 && data !== undefined) {
+  if (address) {
+    if (Array.isArray(data) && data?.length && data[0]?.decimals) {
       data.map((obj) => {
         if (address === obj.address) {
           amount = parseFloat(Moralis?.Units?.FromWei(value, obj.decimals));
@@ -81,26 +82,30 @@ const TokenAmountValue = ({ priceData, address, data, value }) => {
 };
 
 const Transaction = () => {
-  const { account: walletAddress, isAuthenticated, user } = useMoralis();
-  const [transfers, isLoading, chainId] = useNativeTransactions();
+  const {
+    account: walletAddress,
+    isAuthenticated,
+    user,
+    chainId,
+  } = useMoralis();
+  const { transfers } = useNativeTransactions(walletAddress, chainId);
   const [filteredTokenData, setFilteredTokenData] = useState([]);
-  const [metadata, setAddress] = useTokenMetadata();
+  const [metaAddr, setMetaAddr] = useState([]);
+  const { metadata } = useTokenMetadata(metaAddr, chainId);
   const [priceData, setAddresses] = useDexPrice();
 
   useEffect(() => {
-    const transferSet = new Set(
-      transfers.map((transfer) => {
-        return transfer.address;
-      })
-    );
+    const transferSet = new Set(transfers.map((transfer) => transfer.address));
     const filteredTransferAddress = [...transferSet];
-    setAddress(filteredTransferAddress);
+    setMetaAddr(filteredTransferAddress);
     setAddresses(filteredTransferAddress);
+  }, [transfers, chainId]);
 
+  useEffect(() => {
     if (metadata !== undefined && metadata.length !== 0) {
       setFilteredTokenData(metadata);
     }
-  }, [transfers, metadata]);
+  }, [metadata]);
 
   return (
     <div className="transaction">
@@ -117,7 +122,7 @@ const Transaction = () => {
             <th>Tx Hash</th>
           </tr>
         </thead>
-        {!transfers || !walletAddress || !isAuthenticated ? (
+        {!transfers.length || !walletAddress || !isAuthenticated || !chainId ? (
           <tbody>
             <tr>
               <td>Loading..</td>

@@ -23,7 +23,9 @@ const Application = () => {
     );
 };
 ReactDOM.render(
-  <Application />,
+  <React.StrictMode>
+    <Application />
+  </React.StrictMode>,
 
   document.getElementById("root")
 );

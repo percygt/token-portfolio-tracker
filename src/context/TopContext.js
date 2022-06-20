@@ -2,16 +2,15 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCurrencyConvert } from "../hooks/useCurrencyConvert";
 import { useStarredTokenStorage } from "../hooks/useStarredTokenStorage";
 import { useCGWatchStorage } from "../hooks/useCGWatchStorage";
-import { useMoralis } from "react-moralis";
 
 const Top = createContext();
 const TopContext = ({ children }) => {
   const [currency, setCurrency] = useState("USD");
   const [symbol, setSymbol] = useState("$");
-  const [starredToken, setStarredToken] = useStarredTokenStorage();
-  const [watchCG, setWatchCG] = useCGWatchStorage();
+  // const [starredToken, setStarredToken] = useStarredTokenStorage();
+  // const [watchCG, setWatchCG] = useCGWatchStorage();
   const { conversion } = useCurrencyConvert(currency);
-  const { chainId } = useMoralis();
+
   useEffect(() => {
     if (currency === "USD") setSymbol("$");
     else if (currency === "PHP") setSymbol("₱");
@@ -24,10 +23,10 @@ const TopContext = ({ children }) => {
         setCurrency,
         symbol,
         conversion,
-        starredToken,
-        setStarredToken,
-        watchCG,
-        setWatchCG,
+        // starredToken,
+        // setStarredToken,
+        // watchCG,
+        // setWatchCG,
       }}
     >
       {children}
