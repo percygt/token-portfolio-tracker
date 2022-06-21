@@ -3,11 +3,12 @@
   align-items: center;
   background-image: linear-gradient(
     to right,
-    var(--bg),
-    var(--bg2),
-    var(--bg2),
-    var(--bg)
+    var(--bg-light),
+    var(--bg2-light),
+    var(--bg2-light),
+    var(--bg-light)
   );
+  box-shadow: var(--shadow);
 
   &:hover {
     background-image: linear-gradient(

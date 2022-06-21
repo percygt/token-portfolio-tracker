@@ -9,18 +9,18 @@ import { useMoralis } from "react-moralis";
 import { useEffect } from "react";
 
 export default function Chart({ contWidth }) {
-  const { masterData } = PortfolioState();
+  const { masterData, asset, setAsset } = PortfolioState();
   const { symbol, conversion } = TopState();
-
   const { account: walletAddress, isAuthenticated } = useMoralis();
-
-  const [active, setActive] = useState(null);
+  // const [asset, setAsset] = useState(null);
   const [width, setWidth] = useState(350);
   const half = width / 2;
   useEffect(() => {
-    contWidth >= 1300 ? setWidth(400) : setWidth(350);
+    contWidth >= 1300 ? setWidth(350) : setWidth(300);
   }, [contWidth]);
 
+  console.log(asset);
+  console.log(asset);
   return (
     <div className="balance" style={{ height: `${width}px` }}>
       {isNaN(conversion) ||
@@ -38,7 +38,7 @@ export default function Chart({ contWidth }) {
                 pieValue={(data) => data.value}
                 outerRadius={half}
                 innerRadius={({ data }) => {
-                  const size = active && active.symbol == data.symbol ? 95 : 93;
+                  const size = asset && asset.symbol == data.symbol ? 10 : 6;
                   return half - size;
                 }}
                 padAngle={0.005}
@@ -48,8 +48,8 @@ export default function Chart({ contWidth }) {
                     return (
                       <g
                         key={arc.data.token_address}
-                        onMouseEnter={() => setActive(arc.data)}
-                        onMouseLeave={() => setActive(null)}
+                        onMouseEnter={() => setAsset(arc.data)}
+                        onMouseLeave={() => setAsset(null)}
                       >
                         <path d={pie.path(arc)} fill={arc.data.color}></path>
                       </g>
@@ -57,35 +57,44 @@ export default function Chart({ contWidth }) {
                   });
                 }}
               </Pie>
-              <Text
-                textAnchor="middle"
-                fill="var(--grey1)"
-                fontSize={17}
-                dy={-50}
-              >
-                Balance
-              </Text>
-              {active ? (
+
+              {asset ? (
                 <>
+                  <Text
+                    textAnchor="middle"
+                    fill="var(--grey1)"
+                    fontSize={17}
+                    dy={-50}
+                  >
+                    {asset.name}
+                  </Text>
                   <Text textAnchor="middle" fill="#fff" fontSize={25} dy={0}>
                     {`${symbol}${parseFloat(
-                      active.value * conversion
+                      asset.value * conversion
                     ).toLocaleString()}`}
                   </Text>
 
                   <Text
                     textAnchor="middle"
-                    fill={active.color}
+                    fill={asset.color}
                     fontSize={15}
                     dy={40}
                   >
-                    {`${parseFloat(active.balance).toLocaleString()} ${
-                      active.symbol
+                    {`${parseFloat(asset.balance).toLocaleString()} ${
+                      asset.symbol
                     }`}
                   </Text>
                 </>
               ) : (
                 <>
+                  <Text
+                    textAnchor="middle"
+                    fill="var(--grey1)"
+                    fontSize={17}
+                    dy={-50}
+                  >
+                    BSC
+                  </Text>
                   <Text textAnchor="middle" fill="#fff" fontSize={25} dy={0}>
                     {`${symbol}${masterData
                       .reduce((acc, coin) => acc + coin.value * conversion, 0)

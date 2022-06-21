@@ -10,7 +10,7 @@ const PortfolioContext = ({ children }) => {
   const [removedToken, setRemovedToken] = useRemovedTokenStorage();
   const { chainId } = useMoralis();
   const nativeAddress = getWrappedNative(chainId)?.toLowerCase();
-  const [asset, setAsset] = useState({ token_address: nativeAddress });
+  const [asset, setAsset] = useState(null);
 
   return (
     <Portfolio.Provider

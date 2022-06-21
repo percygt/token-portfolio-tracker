@@ -9,7 +9,6 @@
     -moz-box-shadow: inset 0px 0px 61px -62px rgba(0, 0, 0, 1);
     box-shadow: inset 0px 0px 61px -62px rgba(0, 0, 0, 1);
     display: flex;
-
     justify-content: space-between;
     .dashboard_left {
       display: flex;
@@ -18,11 +17,11 @@
       padding: 0 2rem;
     }
     .dashboard_right {
-      // background-color: var(--bg);
-      background-image: var(--bg-image);
+      background-color: var(--bg2-light);
+
       box-shadow: var(--shadow);
       display: flex;
-      padding: 0 1.5rem;
+      // padding: 0 1.5rem;
       border-top-left-radius: 0.5rem;
       border-bottom-left-radius: 0.5rem;
       width: 100%;

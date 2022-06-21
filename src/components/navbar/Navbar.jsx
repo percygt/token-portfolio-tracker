@@ -57,62 +57,65 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="items">
-        <div className="address-search">
-          <form>
+        <div className="nav-left">
+          <div className="address-search">
             <SearchIcon className="address-search-icon" />
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Search Address"
               className="search"
               // onChange={handleChange}
             />
-          </form>
+          </div>
         </div>
-        <div className="currency-dropdown">
-          {typeof currency !== "string" || typeof setCurrency !== "function" ? (
-            []
-          ) : (
-            <>
-              <div
-                className="currency-dropdown-button"
-                onClick={(e) => setIsActive(!isActive)}
-              >
-                {currency}
-                <MdOutlineArrowDropDown />
-              </div>
-              {isActive && (
-                <div className="currency-dropdown-content">
-                  {options.map((option, index) => (
-                    <div
-                      key={index}
-                      className="currency-dropdown-item"
-                      onClick={(e) => {
-                        setCurrency(option);
-                        setIsActive(false);
-                      }}
-                    >
-                      {option}
-                    </div>
-                  ))}
+        <div className="nav-right">
+          <div className="currency-dropdown">
+            {typeof currency !== "string" ||
+            typeof setCurrency !== "function" ? (
+              []
+            ) : (
+              <>
+                <div
+                  className="currency-dropdown-button"
+                  onClick={(e) => setIsActive(!isActive)}
+                >
+                  {currency}
+                  <MdOutlineArrowDropDown />
                 </div>
-              )}
-            </>
+                {isActive && (
+                  <div className="currency-dropdown-content">
+                    {options.map((option, index) => (
+                      <div
+                        key={index}
+                        className="currency-dropdown-item"
+                        onClick={(e) => {
+                          setCurrency(option);
+                          setIsActive(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
+          {!isAuthenticated ? (
+            <div className="btn-drk connect_btn" onClick={login}>
+              Connect Wallet
+            </div>
+          ) : (
+            <div
+              className="btn connect_btn"
+              onClick={logOut}
+              disabled={isAuthenticating}
+            >
+              Connected
+            </div>
           )}
         </div>
-
-        {!isAuthenticated ? (
-          <div className="btn-drk connect_btn" onClick={login}>
-            Connect Wallet
-          </div>
-        ) : (
-          <div
-            className="btn connect_btn"
-            onClick={logOut}
-            disabled={isAuthenticating}
-          >
-            Connected
-          </div>
-        )}
       </div>
     </div>
   );

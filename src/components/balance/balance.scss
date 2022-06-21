@@ -1,3 +1,106 @@
-.balance {
-  width: auto;
+.wallet {
+  width: 100%;
+  padding: 1rem;
+  position: relative;
+  ::-webkit-scrollbar {
+    position: absolute;
+    width: 3px;
+    // background-color: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    position: absolute;
+    border-radius: 20px;
+    background-color: var(--light);
+  }
+  table {
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-size: var(--sm);
+    thead {
+      background-color: var(--bg2-light);
+      background-image: var(--bg-image);
+      border-top: var(--border);
+      border-radius: 0.5rem;
+      padding: 0.2rem;
+      height: 1.75rem;
+      display: flex;
+      color: var(--grey1);
+
+      tr {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-right: 0.25rem;
+        box-shadow: var(--shadow);
+        :not(th:nth-last-child(1), th:nth-child(1), th:nth-child(2)) {
+          width: calc((100% - 7.5rem) / 5);
+          border-right: var(--border);
+        }
+        :not(th:nth-last-child(1)) {
+          border-left: var(--border);
+        }
+        th:nth-last-child(1),
+        th:nth-child(1),
+        th:nth-child(2) {
+          width: 2.5rem;
+        }
+        th {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: var(--sm);
+        }
+      }
+    }
+    tbody {
+      overflow-y: scroll;
+      padding: 0 0.2rem;
+      .token-active {
+        background-color: var(--light);
+        // background-image: var(--bg-image);
+        color: var(--grey1);
+        box-shadow: var(--shadow);
+      }
+      tr {
+        display: flex;
+        // margin: 0.25rem 0;
+        background-color: var(--accent);
+        height: 2rem;
+        // border-radius: 0.5rem;
+        // padding: 0.4rem 0;
+        width: 100%;
+        border-bottom: var(--border);
+        cursor: pointer;
+        &:hover {
+          background-color: var(--light);
+          // background-image: var(--bg-image);
+          color: var(--grey1);
+          box-shadow: var(--shadow);
+        }
+        td:nth-last-child(1),
+        td:nth-child(1),
+        td:nth-child(2) {
+          width: 2.5rem;
+        }
+        :not(td:nth-last-child(1), td:nth-child(1), td:nth-child(2)) {
+          width: calc((100% - 7.5rem) / 5);
+        }
+        td {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: var(--sm);
+          .holdings-icon {
+            width: 1rem;
+          }
+        }
+      }
+    }
+  }
 }
