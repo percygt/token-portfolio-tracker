@@ -18,11 +18,10 @@
       .address-search {
         cursor: text;
         display: flex;
-        height: 2.25rem;
+        height: 2rem;
         align-items: center;
-        background-color: var(--bg2-light);
+        background-color: var(--bg2);
         width: 30rem;
-        justify-content: space-between;
         border: 1px solid var(--light);
         border-radius: 0.5rem;
         .address-search-icon {
@@ -30,10 +29,11 @@
           font-size: 1.2rem;
         }
         .search {
+          display: flex;
           color: var(--tx-clr);
           height: 100%;
-          background-color: var(--bg2-light);
-          width: 28rem;
+          background-color: var(--bg2);
+          width: 27rem;
         }
       }
     }

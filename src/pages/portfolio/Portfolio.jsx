@@ -16,7 +16,6 @@ const Portfolio = () => {
   const [filteredAssets, setFilteredfilteredAssets] = useState([]);
   const { setMasterData, removedToken } = PortfolioState();
   const { starredToken } = MainState();
-
   const [priceData, setAddresses] = useDexPrice();
   const [contWidth, setContWidth] = useState(100);
   const [contHeight, setContHeight] = useState(100);
@@ -108,14 +107,15 @@ const Portfolio = () => {
           : (newData.starred = false);
         return newData;
       });
-      if (chainId !== "0x61") {
-        const pureData = combinedData.filter(
-          (data) => parseFloat(data.price).toLocaleString() != 0
-        );
-        setMasterData(pureData);
-      } else {
-        setMasterData(combinedData);
-      }
+      // if (chainId !== "0x61") {
+      //   const pureData = combinedData.filter(
+      //     (data) => parseFloat(data.price).toLocaleString() != 0
+      //   );
+      //   setMasterData(pureData);
+      // } else {
+      //   setMasterData(combinedData);
+      // }
+      setMasterData(combinedData);
     }
   }, [filteredAssets, priceData, starredToken, chainId]);
 

@@ -1,0 +1,41 @@
+.chain-list {
+  margin: 0.5rem 1rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  align-items: center;
+  height: 3rem;
+  background-color: var(--bg2);
+  background-image: var(--bg-image);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grey1);
+    font-size: var(--m);
+    width: 5.5rem;
+    height: 1.75rem;
+    border-radius: 0.5rem;
+    background-image: var(--bg-image);
+    &.active {
+      background-color: var(--light);
+      color: var(--highlight);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      &:hover {
+        background-image: var(--grey1);
+        border: 1px solid var(--highlight);
+        transition: var(--transition);
+      }
+    }
+    &:hover {
+      background-color: var(--light);
+      box-shadow: var(--shadow);
+      color: var(--highlight);
+      transition: var(--transition);
+    }
+  }
+}

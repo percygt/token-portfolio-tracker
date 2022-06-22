@@ -22,7 +22,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const { currency, setCurrency } = TopState();
   const options = ["USD", "PHP"];
-  console.log(location.pathname.split("/")[1]);
+
   const login = async () => {
     if (!isAuthenticated) {
       await authenticate({ signingMessage: "hey percy" })
@@ -37,7 +37,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     if (location.pathname.split("/")[1] === "portfolio" && isAuthenticated) {
-      navigate(`portfolio/${walletAddress}`);
+      navigate(`portfolio/${walletAddress}/chain/all`);
     } else if (
       location.pathname.split("/")[1] === "portfolio" &&
       !isAuthenticated

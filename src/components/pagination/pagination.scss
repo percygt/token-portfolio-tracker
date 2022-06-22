@@ -1,0 +1,23 @@
+nav {
+  display: flex;
+  height: 3rem;
+  background-color: var(--bg2-light);
+  background-image: var(--bg-image);
+  align-items: center;
+  margin: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  ul {
+    display: flex;
+    padding: 0 0.5rem;
+    li {
+      a {
+        display: flex;
+        width: 3rem;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ export const useErc20Balance = (address, chainId) => {
   const [isLoading, setIsLoading] = useState(false);
   const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
   useEffect(() => {
+    console.log(chainId);
     let isMounted = true;
     const source = axios.CancelToken.source();
     const erc20BalanceResponse = async () => {

@@ -36,7 +36,12 @@ const App = ({ isServerInfo }) => {
             <Route index element={<Home />} />
             <Route path="portfolio">
               <Route path="new" index element={<New />} />
-              <Route path={walletAddress} element={<Portfolio />} />
+              <Route path=":address">
+                <Route path="chain/:chain" element={<Portfolio />} />
+                <Route path="nft" element={<Portfolio />}>
+                  <Route path="chain/:chain" element={<Portfolio />} />
+                </Route>
+              </Route>
             </Route>
             <Route path="swap" element={<Swap />} />
             <Route path="tools" element={<Tools />} />

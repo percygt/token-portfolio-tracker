@@ -6,6 +6,7 @@ import { PortfolioState } from "../../context/PortfolioContext";
 import { getRoundDown, getEllipsisTxt } from "../../helpers/formatters";
 import { useMoralis } from "react-moralis";
 import StarIcon from "@mui/icons-material/Star";
+import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DefaultLogo from "../../assets/default-token.png";
 
@@ -17,13 +18,16 @@ const Balance = () => {
     asset,
     setAsset,
     nativeAddress,
+    tokenPerPage,
+    setTokenPerPage,
+    currentPage,
   } = PortfolioState();
   const { symbol, conversion } = TopState();
   const { starredToken, setStarredToken } = MainState();
   const { account: walletAddress, isAuthenticated } = useMoralis();
   const [onHover, setOnHover] = useState(null);
   const [search, setSearch] = useState("");
-  console.log(asset);
+
   const handleClickStar = (d) => {
     if (starredToken.includes(d)) {
       setStarredToken([...starredToken.filter((val) => val !== d)]);
@@ -33,9 +37,22 @@ const Balance = () => {
   const handleClickTrash = (d) => {
     setRemovedToken([...removedToken, d]);
   };
+  const indexOfLastToken = currentPage * tokenPerPage;
+  const indexOfFirstToken = indexOfLastToken - tokenPerPage;
+  const currentTokens = masterData.slice(indexOfFirstToken, indexOfLastToken);
+  console.log(currentTokens);
 
   return (
     <div className="wallet">
+      <div className="search">
+        <SearchIcon className="search_icon" />
+        <input
+          type="text"
+          placeholder="Search Token"
+          className="holdings_search"
+          // onChange={handleChange}
+        />
+      </div>
       <table>
         <thead>
           <tr>
@@ -52,15 +69,14 @@ const Balance = () => {
         </thead>
         {isNaN(conversion) ||
         typeof symbol !== "string" ||
-        !masterData.length ||
-        !walletAddress ||
+        !currentTokens.length ||
         !isAuthenticated ? (
           <tbody className="wallet_content no_data_to_show">
             No Data to show
           </tbody>
         ) : (
           <tbody>
-            {masterData.map((data) => {
+            {currentTokens.map((data) => {
               return (
                 <tr
                   className={

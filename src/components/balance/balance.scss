@@ -1,7 +1,13 @@
 .wallet {
-  width: 100%;
-  padding: 1rem;
+  height: calc(100% - 7rem);
+  width: calc(100% - 3rem);
+  margin: 0 1.5rem;
+  padding: 0 0.5rem;
   position: relative;
+  background-color: var(--accent);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--light);
   ::-webkit-scrollbar {
     position: absolute;
     width: 3px;
@@ -12,55 +18,73 @@
     border-radius: 20px;
     background-color: var(--light);
   }
-  table {
-    background-color: var(--accent);
+  .search {
+    margin: 0.5rem;
+    display: flex;
+    width: 15rem;
+    background-color: var(--bg2);
+    height: 1.5rem;
+    align-items: center;
     border-radius: 0.5rem;
-    padding: 0.5rem;
+    border: 1px solid var(--light);
+    .search_icon {
+      font-size: 0.8rem;
+      width: 1.5rem;
+    }
+    input {
+      display: flex;
+      width: 13rem;
+      background-color: var(--bg2);
+      color: var(--tx-clr);
+    }
+  }
+  table {
+    padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
     overflow: hidden;
-    font-size: var(--sm);
+    font-size: var(--m);
     thead {
       background-color: var(--bg2-light);
       background-image: var(--bg-image);
       border-top: var(--border);
-      border-radius: 0.5rem;
-      padding: 0.2rem;
+      border-radius: 0.25rem;
       height: 1.75rem;
       display: flex;
       color: var(--grey1);
-
       tr {
         display: flex;
         align-items: center;
         width: 100%;
-        padding-right: 0.25rem;
+        height: 100%;
         box-shadow: var(--shadow);
-        :not(th:nth-last-child(1), th:nth-child(1), th:nth-child(2)) {
-          width: calc((100% - 7.5rem) / 5);
-          border-right: var(--border);
-        }
-        :not(th:nth-last-child(1)) {
+        :not(th:nth-last-child(1), th:nth-child(1), th:nth-child(2), th:nth-child(3)) {
+          width: calc((100% - 22.5rem) / 4);
           border-left: var(--border);
         }
         th:nth-last-child(1),
         th:nth-child(1),
         th:nth-child(2) {
           width: 2.5rem;
+          border-left: var(--border);
+        }
+        th:nth-child(3) {
+          width: 15rem;
+          border-left: var(--border);
         }
         th {
           display: flex;
+          height: 1rem;
           align-items: center;
           justify-content: center;
-          font-size: var(--sm);
+          font-size: var(--m);
+          font-weight: 300;
         }
       }
     }
     tbody {
       overflow-y: scroll;
-      padding: 0 0.2rem;
+      // padding: 0 0.2rem;
       .token-active {
         background-color: var(--light);
         // background-image: var(--bg-image);
@@ -72,8 +96,7 @@
         // margin: 0.25rem 0;
         background-color: var(--accent);
         height: 2rem;
-        // border-radius: 0.5rem;
-        // padding: 0.4rem 0;
+        border-radius: 0.25rem;
         width: 100%;
         border-bottom: var(--border);
         cursor: pointer;
@@ -88,14 +111,18 @@
         td:nth-child(2) {
           width: 2.5rem;
         }
-        :not(td:nth-last-child(1), td:nth-child(1), td:nth-child(2)) {
-          width: calc((100% - 7.5rem) / 5);
+        td:nth-child(3) {
+          width: 15rem;
+        }
+        :not(td:nth-last-child(1), td:nth-child(1), td:nth-child(2), td:nth-child(3)) {
+          width: calc((100% - 22.5rem) / 4);
         }
         td {
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: var(--sm);
+          font-size: var(--m);
+          font-weight: 300;
           .holdings-icon {
             width: 1rem;
           }

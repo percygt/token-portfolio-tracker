@@ -4,17 +4,23 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import InfoIcon from "@mui/icons-material/Info";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useParams, useLocation } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 
 const SidebarLeft = () => {
+  const logo = "prcy.";
+  const { chain } = useParams();
+  const location = useLocation();
   const {
     isWeb3Enabled,
     isAuthenticated,
     account: walletAddress,
   } = useMoralis();
-  const logo = "prcy.";
-  console.log(isAuthenticated);
+  const checkURL = () => {
+    if (location.pathname.split("/")[3] === "nft") {
+      return `nft/chain/${chain ? chain : "all"}`;
+    } else return `chain/${chain ? chain : "all"}`;
+  };
   return (
     <div className="sidebar-left">
       <div className="top">
@@ -25,7 +31,11 @@ const SidebarLeft = () => {
 
       <div className="bottom">
         <NavLink
-          to={!isAuthenticated ? "portfolio/new" : `portfolio/${walletAddress}`}
+          to={
+            isAuthenticated && walletAddress !== null
+              ? `portfolio/${walletAddress}/${checkURL()}`
+              : "portfolio/new"
+          }
           className="link"
           activeclassname="active"
         >
