@@ -48,10 +48,11 @@ export const useDexPrice = () => {
       );
 
     async function fetchAssets() {
-      const tokenPriceData = await getDataPrices(addresses);
-      setPriceData(tokenPriceData);
-      // console.log(tokenPriceData);
-      isMounted && setIsLoading(false);
+      if (addresses.length) {
+        const tokenPriceData = await getDataPrices(addresses);
+        setPriceData(tokenPriceData);
+        isMounted && setIsLoading(false);
+      }
     }
     fetchAssets();
 

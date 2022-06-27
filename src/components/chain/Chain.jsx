@@ -8,7 +8,7 @@ const Chain = () => {
     account: walletAddress,
   } = useMoralis();
   const location = useLocation();
-  console.log(location.pathname.split("/")[3]);
+
   const toPath = (chainId) => {
     if (location.pathname.split("/")[3] === "nft") {
       return `/portfolio/${walletAddress}/nft/chain/${chainId}`;

@@ -1,25 +1,46 @@
 import "./pagination.scss";
 import { PortfolioState } from "../../context/PortfolioContext";
-const Pagination = () => {
-  const { masterData, tokenPerPage, paginate } = PortfolioState();
-  const pageNumbers = [];
+import ReactPaginate from "react-paginate";
+import { useState, useEffect, useMemo } from "react";
 
-  for (let i = 1; i <= Math.ceil(masterData.length / tokenPerPage); i++) {
-    pageNumbers.push(i);
-  }
+const Pagination = () => {
+  const { filteredToken, setCurrentItems } = PortfolioState();
+  const items = filteredToken;
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(items.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(items.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, items]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length;
+    setItemOffset(newOffset);
+  };
 
   return (
-    <nav>
-      <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} className="page-link">
-              {number}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel=">"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={1}
+        marginPagesDisplayed={1}
+        pageCount={pageCount}
+        previousLabel="<"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        pageLinkClassName="page-num"
+        previousLinkClassName="page-prev"
+        nextLinkClassName="page-next"
+        activeLinkClassName="active"
+        pageClassName="page-cont"
+        disabledLinkClassName="disabled"
+      />
+    </>
   );
 };
 

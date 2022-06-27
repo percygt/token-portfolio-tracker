@@ -44,7 +44,7 @@ const CryptoContext = ({ children }) => {
         nativeAddress,
       }}
     >
-      {children}
+      {}
     </Crypto.Provider>
   );
 };

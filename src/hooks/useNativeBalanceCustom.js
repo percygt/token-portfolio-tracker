@@ -1,47 +1,49 @@
+import { NativeBalance } from "../config/api";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  useMoralis,
-  useMoralisWeb3Api,
-  useMoralisWeb3ApiCall,
-} from "react-moralis";
 
-export const useNativeBalanceCustom = () => {
-  const [asset, setAsset] = useState([]);
+export const useNativeBalanceCustom = (addr, chainId) => {
+  const [balance, setBalance] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
-  const Web3Api = useMoralisWeb3Api();
-  const { chainId } = useMoralis();
-  const { fetch } = useMoralisWeb3ApiCall(Web3Api.account.getNativeBalance, {
-    chain: chainId,
-  });
+  const API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
   useEffect(() => {
     let isMounted = true;
-    const fetchResponse = async () => {
+    const source = axios.CancelToken.source();
+    const nativeBalanceResponse = async () => {
       setIsLoading(true);
-      try {
-        const response = await fetch();
+      if (addr) {
+        try {
+          const baseURL = NativeBalance(addr);
+          const options = {
+            params: { chain: chainId },
+            headers: {
+              accept: "application/json",
+              "X-API-Key": API_KEY,
+            },
+          };
+          const response = await axios.get(baseURL, options, {
+            cancelToken: source.token,
+          });
 
-        if (isMounted) {
-          if (
-            typeof response === "object" &&
-            response !== null &&
-            !Array.isArray(response)
-          )
-            setAsset(response);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setAsset([]);
+          if (isMounted) {
+            if (Object.keys(response).length) setBalance(response.data);
+          }
+          // return response;
+        } catch (err) {
+          if (isMounted) setBalance([]);
           console.log(err.stack);
+        } finally {
+          isMounted && setIsLoading(false);
         }
-      } finally {
-        isMounted && setIsLoading(false);
       }
     };
-    fetchResponse();
+    nativeBalanceResponse();
     return () => {
       isMounted = false;
+      source.cancel();
     };
-  }, [fetch]);
+  }, [addr, chainId, API_KEY]);
 
-  return { asset, isLoading };
+  return { balance, isLoading };
 };

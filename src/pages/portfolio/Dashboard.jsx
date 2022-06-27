@@ -6,6 +6,7 @@ import Balance from "../../components/balance/Balance";
 import Chain from "../../components/chain/Chain";
 import Wallet from "../../components/wallet/Wallet";
 import Pagination from "../../components/pagination/Pagination";
+import Profile from "../../components/profile/Profile";
 
 export const Dashboard = ({ contWidth, contHeight, contRef, height }) => {
   return (
@@ -13,6 +14,7 @@ export const Dashboard = ({ contWidth, contHeight, contRef, height }) => {
       <Wallet />
       <div className="dashboard_top">
         <div className="dashboard_left">
+          <Profile />
           <Chart contWidth={contWidth} contHeight={contHeight} />
         </div>
         <div className="dashboard_right">

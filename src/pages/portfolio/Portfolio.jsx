@@ -8,11 +8,13 @@ import { PortfolioState } from "../../context/PortfolioContext";
 import { Dashboard } from "./Dashboard";
 import { useErc20Balance } from "../../hooks/useErc20Balance";
 import { MainState } from "../../context/MainContent";
-// import { TopState } from "../../context/TopContext";
+import { TopState } from "../../context/TopContext";
 
 const Portfolio = () => {
   const { Moralis, chainId, account: walletAddress } = useMoralis();
-  const { assets } = useErc20Balance(walletAddress, chainId);
+  const { address } = TopState();
+
+  const { assets } = useErc20Balance(address, chainId);
   const [filteredAssets, setFilteredfilteredAssets] = useState([]);
   const { setMasterData, removedToken } = PortfolioState();
   const { starredToken } = MainState();
@@ -22,7 +24,8 @@ const Portfolio = () => {
   const [height, setHeight] = useState(20);
   const contRef = useRef();
   const { nativeToken } = useNativeBalance();
-  const { asset } = useNativeBalanceCustom();
+  const { balance } = useNativeBalanceCustom(address, chainId);
+
   useEffect(() => {
     contHeight < 630 ? setHeight(25) : setHeight(30);
   }, [contHeight]);
@@ -32,7 +35,7 @@ const Portfolio = () => {
       if (
         Array.isArray(assets) &&
         assets[0]?.token_address &&
-        asset?.balance &&
+        balance?.balance &&
         nativeToken?.decimals
           ? true
           : false
@@ -40,7 +43,7 @@ const Portfolio = () => {
         const fullBalance = [
           {
             token_address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-            balance: asset.balance,
+            balance: balance.balance,
             decimals: nativeToken.decimals,
             name: nativeToken.name,
             symbol: nativeToken.symbol,
@@ -49,7 +52,7 @@ const Portfolio = () => {
         ];
         let tempArray = [];
         if (Array.isArray(fullBalance) && fullBalance[0]?.token_address) {
-          await fullBalance?.forEach((data) => {
+          fullBalance?.forEach((data) => {
             if (!removedToken.includes(data.token_address))
               tempArray = [...tempArray, data];
           });
@@ -60,7 +63,7 @@ const Portfolio = () => {
       }
     };
     getFilterefToken();
-  }, [removedToken, nativeToken, asset, assets]);
+  }, [removedToken, nativeToken, balance, assets]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((event) => {

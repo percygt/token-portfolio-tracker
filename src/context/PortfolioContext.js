@@ -11,9 +11,22 @@ const PortfolioContext = ({ children }) => {
   const { chainId } = useMoralis();
   const nativeAddress = getWrappedNative(chainId)?.toLowerCase();
   const [asset, setAsset] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [tokenPerPage, setTokenPerPage] = useState(8);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filteredToken, setFilteredToken] = useState([]);
+  useEffect(() => {
+    const filtered = masterData.filter(
+      (data) =>
+        data.name.toLowerCase().includes(search.toLowerCase()) ||
+        data.symbol.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredToken(filtered);
+  }, [search, masterData]);
+  // const filteredToken = masterData.filter(
+  //   (data) =>
+  //     data.name.toLowerCase().includes(search.toLowerCase()) ||
+  //     data.symbol.toLowerCase().includes(search.toLowerCase())
+  // );
   return (
     <Portfolio.Provider
       value={{
@@ -24,11 +37,11 @@ const PortfolioContext = ({ children }) => {
         asset,
         setAsset,
         nativeAddress,
-        tokenPerPage,
-        setTokenPerPage,
-        currentPage,
-        setCurrentPage,
-        paginate,
+        currentItems,
+        setCurrentItems,
+        search,
+        setSearch,
+        filteredToken,
       }}
     >
       {children}

@@ -1,23 +1,55 @@
-nav {
+.pagination {
   display: flex;
   height: 3rem;
   background-color: var(--bg2-light);
   background-image: var(--bg-image);
   align-items: center;
-  margin: 0.5rem 1rem;
+  margin: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: var(--shadow);
-  ul {
+  gap: 0.5rem;
+  padding-left: 0.75rem;
+  .disabled {
+    color: var(--grey2);
+    cursor: default;
+  }
+  :not(.disabled) {
+    cursor: pointer;
+    &:hover {
+      color: var(--highlight);
+    }
+  }
+  .page-num {
     display: flex;
-    padding: 0 0.5rem;
-    li {
-      a {
-        display: flex;
-        width: 3rem;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-      }
+    border-radius: 1rem;
+    border: 1px solid var(--light);
+    font-size: var(--sm);
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    &:hover {
+      border: 1px solid var(--highlight);
+    }
+  }
+  .page-prev,
+  .page-next {
+    font-size: var(--xxl);
+    align-items: center;
+  }
+  .page-prev {
+    justify-content: flex-end;
+  }
+
+  .page-prev,
+  .page-next,
+  .page-num {
+    display: flex;
+
+    height: 2rem;
+
+    &.active {
+      background-color: var(--light);
+      color: var(--highlight);
     }
   }
 }

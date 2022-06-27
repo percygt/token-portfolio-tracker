@@ -10,7 +10,7 @@ export const useCurrencyConvert = (currency) => {
   useEffect(() => {
     let isMounted = true;
     const source = axios.CancelToken.source();
-    console.log(conversion);
+
     const fetchCurrencyConvert = async () => {
       setIsLoading(true);
       try {
@@ -19,7 +19,6 @@ export const useCurrencyConvert = (currency) => {
             `https://v6.exchangerate-api.com/v6/${CURRENCY_API_KEY}/pair/USD/${currency}`,
             { cancelToken: source.token }
           );
-          console.log(response.data.conversion_rate);
 
           if (isMounted) {
             if (Object.keys(response).length)

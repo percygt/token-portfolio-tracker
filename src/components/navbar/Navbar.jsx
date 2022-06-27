@@ -15,13 +15,26 @@ const Navbar = () => {
     authenticate,
     isAuthenticated,
     isAuthenticating,
-    user,
     account: walletAddress,
     logout,
   } = useMoralis();
   const [isActive, setIsActive] = useState(false);
-  const { currency, setCurrency } = TopState();
+  const { currency, setCurrency, address, setAddress } = TopState();
   const options = ["USD", "PHP"];
+  useEffect(() => {
+    setAddress(walletAddress);
+  }, [walletAddress]);
+
+  useEffect(() => {
+    if (location.pathname.split("/")[1] === "portfolio" && isAuthenticated) {
+      navigate(`portfolio/${walletAddress}/chain/all`);
+    } else if (
+      location.pathname.split("/")[1] === "portfolio" &&
+      !isAuthenticated
+    ) {
+      navigate("/portfolio/new");
+    }
+  }, [walletAddress, isAuthenticated]);
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -35,16 +48,6 @@ const Navbar = () => {
         });
     }
   };
-  useEffect(() => {
-    if (location.pathname.split("/")[1] === "portfolio" && isAuthenticated) {
-      navigate(`portfolio/${walletAddress}/chain/all`);
-    } else if (
-      location.pathname.split("/")[1] === "portfolio" &&
-      !isAuthenticated
-    ) {
-      navigate("/portfolio/new");
-    }
-  }, [walletAddress, isAuthenticated]);
 
   const logOut = async () => {
     if (location.pathname.split("/")[1] === "portfolio") {
@@ -54,6 +57,14 @@ const Navbar = () => {
     await logout();
     console.log("logged out");
   };
+
+  const handleInput = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setAddress(e.target.value);
+    }
+  };
+
   return (
     <div className="navbar">
       <div className="items">
@@ -64,7 +75,7 @@ const Navbar = () => {
               type="text"
               placeholder="Search Address"
               className="search"
-              // onChange={handleChange}
+              onKeyPress={handleInput}
             />
           </div>
         </div>

@@ -19,8 +19,6 @@ export default function Chart({ contWidth }) {
     contWidth >= 1300 ? setWidth(350) : setWidth(300);
   }, [contWidth]);
 
-  console.log(asset);
-  console.log(asset);
   return (
     <div className="balance" style={{ height: `${width}px` }}>
       {isNaN(conversion) ||

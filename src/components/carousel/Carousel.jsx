@@ -10,9 +10,6 @@ import { useMemo } from "react";
 const Carousel = () => {
   const { currency, symbol } = TopState();
   const [coins, isLoading] = useCoingecko(CoinList(currency));
-  console.log(currency);
-  console.log(symbol);
-  console.log(coins);
 
   // const curr = useMemo(currency, currency);
   // const sym = useMemo(symbol, currency);

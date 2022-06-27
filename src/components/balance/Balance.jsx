@@ -3,7 +3,11 @@ import "./balance.scss";
 import { TopState } from "../../context/TopContext";
 import { MainState } from "../../context/MainContent";
 import { PortfolioState } from "../../context/PortfolioContext";
-import { getRoundDown, getEllipsisTxt } from "../../helpers/formatters";
+import {
+  getRoundDown,
+  getEllipsisTxt,
+  getEllipsisTxtRight,
+} from "../../helpers/formatters";
 import { useMoralis } from "react-moralis";
 import StarIcon from "@mui/icons-material/Star";
 import SearchIcon from "@mui/icons-material/Search";
@@ -12,21 +16,18 @@ import DefaultLogo from "../../assets/default-token.png";
 
 const Balance = () => {
   const {
-    masterData,
     removedToken,
     setRemovedToken,
     asset,
     setAsset,
     nativeAddress,
-    tokenPerPage,
-    setTokenPerPage,
-    currentPage,
+    currentItems,
+    setSearch,
   } = PortfolioState();
   const { symbol, conversion } = TopState();
   const { starredToken, setStarredToken } = MainState();
   const { account: walletAddress, isAuthenticated } = useMoralis();
   const [onHover, setOnHover] = useState(null);
-  const [search, setSearch] = useState("");
 
   const handleClickStar = (d) => {
     if (starredToken.includes(d)) {
@@ -37,11 +38,12 @@ const Balance = () => {
   const handleClickTrash = (d) => {
     setRemovedToken([...removedToken, d]);
   };
-  const indexOfLastToken = currentPage * tokenPerPage;
-  const indexOfFirstToken = indexOfLastToken - tokenPerPage;
-  const currentTokens = masterData.slice(indexOfFirstToken, indexOfLastToken);
-  console.log(currentTokens);
-
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+  const handleHover = () => {
+    return <StarIcon />;
+  };
   return (
     <div className="wallet">
       <div className="search">
@@ -50,7 +52,7 @@ const Balance = () => {
           type="text"
           placeholder="Search Token"
           className="holdings_search"
-          // onChange={handleChange}
+          onChange={handleChange}
         />
       </div>
       <table>
@@ -58,8 +60,8 @@ const Balance = () => {
           <tr>
             <th className="holdings-star"></th>
             <th></th>
-            <th>Token</th>
             <th>Symbol</th>
+            <th>Token</th>
             <th>Contract</th>
             <th>Price</th>
             <th>Balance</th>
@@ -69,14 +71,17 @@ const Balance = () => {
         </thead>
         {isNaN(conversion) ||
         typeof symbol !== "string" ||
-        !currentTokens.length ||
+        !currentItems ||
+        !currentItems.length ||
         !isAuthenticated ? (
           <tbody className="wallet_content no_data_to_show">
-            No Data to show
+            <tr>
+              <td> No Data to show</td>
+            </tr>
           </tbody>
         ) : (
           <tbody>
-            {currentTokens.map((data) => {
+            {currentItems.map((data, index) => {
               return (
                 <tr
                   className={
@@ -100,12 +105,10 @@ const Balance = () => {
                   }}
                 >
                   <td className="holdings-star">
-                    <StarIcon
-                      className="holdings-icon"
-                      onClick={(e) => handleClickStar(data.token_address)}
-                      style={
-                        onHover === data.token_address
-                          ? data.starred
+                    {onHover === data.token_address ? (
+                      <StarIcon
+                        style={
+                          data.starred
                             ? {
                                 display: "block",
                                 color: "yellow",
@@ -113,31 +116,32 @@ const Balance = () => {
                             : {
                                 display: "block",
                               }
-                          : { display: "none" }
-                      }
-                    />
+                        }
+                      />
+                    ) : (
+                      index + 1
+                    )}
                   </td>
                   <td>
                     {data.logo === null ? (
                       <img
                         src={DefaultLogo}
-                        alt=""
-                        style={{ width: "1.2rem" }}
+                        alt="coin-logo"
+                        style={{ width: "1rem" }}
                       />
                     ) : (
                       <img src={data.logo} alt="" style={{ width: "1.2rem" }} />
                     )}
                   </td>
-                  <td>{data.name}</td>
-                  <td>{data.symbol}</td>
-                  <td>{getEllipsisTxt(data.token_address, 4)}</td>
+                  <td>{getEllipsisTxtRight(data.symbol, 10)}</td>
+                  <td>{getEllipsisTxtRight(data.name, 17)}</td>
+                  <td>{getEllipsisTxt(data.token_address, 5)}</td>
                   <td>
                     {symbol}
                     {getRoundDown(data.price)}
                   </td>
                   <td>{getRoundDown(data.balance)}</td>
                   <td>
-                    {" "}
                     {symbol}
                     {getRoundDown(data.value)}
                   </td>

@@ -1,6 +1,7 @@
 :root {
   --bg: rgb(13, 14, 15);
   --bg-light: rgba(13, 14, 15, 0.96);
+  /* --toastify-color-light: var(--bg-light); */
   --bg2: rgb(28, 30, 36);
   --accent: rgb(24, 26, 32);
   --bg2-light: rgb(28, 30, 36, 0.6);
@@ -17,6 +18,7 @@
   --m: 0.8rem;
   --l: 1rem;
   --xl: 1.25rem;
+  --xxl: 2rem;
   --br: 0.5rem;
   --shadow: rgb(0 0 0 / 5%) 2px 4px 10px;
 
