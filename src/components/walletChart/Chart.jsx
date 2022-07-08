@@ -11,21 +11,15 @@ import { useEffect } from "react";
 export default function Chart({ contWidth }) {
   const { masterData, asset, setAsset } = PortfolioState();
   const { symbol, conversion } = TopState();
-  const { account: walletAddress, isAuthenticated } = useMoralis();
-  // const [asset, setAsset] = useState(null);
   const [width, setWidth] = useState(350);
   const half = width / 2;
   useEffect(() => {
-    contWidth >= 1300 ? setWidth(350) : setWidth(300);
+    contWidth >= 1300 ? setWidth(320) : setWidth(320);
   }, [contWidth]);
 
   return (
     <div className="balance" style={{ height: `${width}px` }}>
-      {isNaN(conversion) ||
-      typeof symbol !== "string" ||
-      !masterData.length ||
-      !walletAddress ||
-      !isAuthenticated ? (
+      {isNaN(conversion) || typeof symbol !== "string" || !masterData.length ? (
         "No data to show"
       ) : (
         <main>
@@ -48,6 +42,7 @@ export default function Chart({ contWidth }) {
                         key={arc.data.token_address}
                         onMouseEnter={() => setAsset(arc.data)}
                         onMouseLeave={() => setAsset(null)}
+                        onClick={(e) => setAsset(arc.data)}
                       >
                         <path d={pie.path(arc)} fill={arc.data.color}></path>
                       </g>

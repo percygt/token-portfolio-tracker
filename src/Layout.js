@@ -5,6 +5,10 @@ import SidebarLeft from "./components/sidebar/SidebarLeft";
 import Carousel from "./components/carousel/Carousel";
 import PortfolioContext from "./context/PortfolioContext";
 import MainContext from "./context/MainContent";
+import { useEffect } from "react";
+import { useMoralis } from "react-moralis";
+import { useNavigate } from "react-router-dom";
+import { TopState } from "./context/TopContext";
 
 const Layout = () => {
   return (

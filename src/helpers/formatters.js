@@ -39,11 +39,12 @@ export const getEllipsisTxtRight = (str, n = 10) => {
 export const getRoundDown = (s) => {
   if (s) {
     let str = Math.floor(s).toString();
-
-    if (str.length === 6) {
+    if (s.length > 1 && parseFloat(s).toLocaleString() == 0) {
+      return parseFloat(s).toPrecision(1);
+    } else if (str.length === 6) {
       return `0.${str.slice(0, 1)} M`;
     } else if (str.length >= 7 && str.length <= 9) {
-      if (str.slice(1, 2) == 0 && str.slice(2, 3, 2) == 0) {
+      if (str.slice(1, 2) == 0 && str.slice(2, 3) == 0) {
         return `${str.slice(0, 1)} M`;
       } else {
         return `${str.slice(0, 1)}.${str.slice(1, 3)} M`;
@@ -53,11 +54,12 @@ export const getRoundDown = (s) => {
     } else if (
       s.toString().slice(1, 2) === "." ||
       s.toString().slice(2, 3) === "." ||
-      s.toString().slice(3, 4) === "."
+      s.toString().slice(3, 4) === "." ||
+      s.toString().slice(5, 6) === "."
     ) {
       return parseFloat(s).toLocaleString();
     } else return parseFloat(str).toLocaleString();
-  }
+  } else return s;
 };
 
 export const tokenValue = (value, decimals) =>

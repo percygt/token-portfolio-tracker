@@ -8,11 +8,16 @@ import {
   getEllipsisTxt,
   getEllipsisTxtRight,
 } from "../../helpers/formatters";
-import { useMoralis } from "react-moralis";
+
 import StarIcon from "@mui/icons-material/Star";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DataThresholdingIcon from "@mui/icons-material/DataThresholding";
 import DefaultLogo from "../../assets/default-token.png";
+import { getWrappedNative, getNativeByChain } from "../../helpers/networks";
+
+const IsNative = (address) =>
+  address === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
 const Balance = () => {
   const {
@@ -24,9 +29,9 @@ const Balance = () => {
     currentItems,
     setSearch,
   } = PortfolioState();
-  const { symbol, conversion } = TopState();
+  console.log(currentItems);
+  const { symbol, conversion, chain } = TopState();
   const { starredToken, setStarredToken } = MainState();
-  const { account: walletAddress, isAuthenticated } = useMoralis();
   const [onHover, setOnHover] = useState(null);
 
   const handleClickStar = (d) => {
@@ -46,14 +51,20 @@ const Balance = () => {
   };
   return (
     <div className="wallet">
-      <div className="search">
-        <SearchIcon className="search_icon" />
-        <input
-          type="text"
-          placeholder="Search Token"
-          className="holdings_search"
-          onChange={handleChange}
-        />
+      <div className="wallet-top">
+        <div className="wallet_label">
+          <DataThresholdingIcon className="holdings-icon" />
+          Holdings
+        </div>
+        <div className="search">
+          <SearchIcon className="search_icon" />
+          <input
+            type="text"
+            placeholder="Search Token"
+            className="holdings_search"
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <table>
         <thead>
@@ -72,8 +83,7 @@ const Balance = () => {
         {isNaN(conversion) ||
         typeof symbol !== "string" ||
         !currentItems ||
-        !currentItems.length ||
-        !isAuthenticated ? (
+        !currentItems.length ? (
           <tbody className="wallet_content no_data_to_show">
             <tr>
               <td> No Data to show</td>
@@ -81,7 +91,7 @@ const Balance = () => {
           </tbody>
         ) : (
           <tbody>
-            {currentItems.map((data, index) => {
+            {currentItems.map((data) => {
               return (
                 <tr
                   className={
@@ -107,23 +117,25 @@ const Balance = () => {
                   <td className="holdings-star">
                     {onHover === data.token_address ? (
                       <StarIcon
+                        onClick={(e) => handleClickStar(data.token_address)}
+                        className="holdings-icon"
                         style={
                           data.starred
                             ? {
-                                display: "block",
+                                display: "flex",
                                 color: "yellow",
                               }
                             : {
-                                display: "block",
+                                display: "flex",
                               }
                         }
                       />
                     ) : (
-                      index + 1
+                      data.id
                     )}
                   </td>
                   <td>
-                    {data.logo === null ? (
+                    {!data.logo ? (
                       <img
                         src={DefaultLogo}
                         alt="coin-logo"
@@ -133,9 +145,21 @@ const Balance = () => {
                       <img src={data.logo} alt="" style={{ width: "1.2rem" }} />
                     )}
                   </td>
-                  <td>{getEllipsisTxtRight(data.symbol, 10)}</td>
-                  <td>{getEllipsisTxtRight(data.name, 17)}</td>
-                  <td>{getEllipsisTxt(data.token_address, 5)}</td>
+                  <td>
+                    {IsNative(data.token_address)
+                      ? getNativeByChain(chain)
+                      : getEllipsisTxtRight(data.symbol, 10)}
+                  </td>
+                  <td>
+                    {IsNative(data.token_address)
+                      ? getNativeByChain(chain)
+                      : getEllipsisTxtRight(data.name, 17)}
+                  </td>
+                  <td>
+                    {IsNative(data.token_address)
+                      ? getEllipsisTxt(getWrappedNative(chain), 5)
+                      : getEllipsisTxt(data.token_address, 5)}
+                  </td>
                   <td>
                     {symbol}
                     {getRoundDown(data.price)}

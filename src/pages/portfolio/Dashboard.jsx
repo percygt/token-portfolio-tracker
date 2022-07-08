@@ -1,7 +1,7 @@
 import Chart from "../../components/walletChart/Chart";
 import Holdings from "../../components/holdings/Holdings";
 import MakeTransaction from "../../components/makeTransaction/MakeTransaction";
-import Transaction from "../../components/transaction/Transaction";
+import TokenTransfer from "../../components/transactions/TokenTransfer";
 import Balance from "../../components/balance/Balance";
 import Chain from "../../components/chain/Chain";
 import Wallet from "../../components/wallet/Wallet";
@@ -23,7 +23,9 @@ export const Dashboard = ({ contWidth, contHeight, contRef, height }) => {
           <Pagination />
         </div>
       </div>
-      <div className="dashboard_bottom">{/* <Transaction /> */}</div>
+      <div className="dashboard_bottom">
+        <TokenTransfer />
+      </div>
     </div>
   );
 };

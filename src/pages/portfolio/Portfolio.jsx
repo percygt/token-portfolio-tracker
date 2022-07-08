@@ -2,41 +2,41 @@ import React from "react";
 import "./portfolio.scss";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useDexPrice } from "../../hooks/useDexPrice";
-import { useMoralis, useNativeBalance } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import { useNativeBalanceCustom } from "../../hooks/useNativeBalanceCustom";
 import { PortfolioState } from "../../context/PortfolioContext";
 import { Dashboard } from "./Dashboard";
 import { useErc20Balance } from "../../hooks/useErc20Balance";
 import { MainState } from "../../context/MainContent";
 import { TopState } from "../../context/TopContext";
+import { networkConfigs } from "../../helpers/networks";
 
 const Portfolio = () => {
-  const { Moralis, chainId, account: walletAddress } = useMoralis();
-  const { address } = TopState();
+  const { Moralis, chainId } = useMoralis();
+  const { address, chain } = TopState();
 
-  const { assets } = useErc20Balance(address, chainId);
+  const { assets } = useErc20Balance(address, chain);
   const [filteredAssets, setFilteredfilteredAssets] = useState([]);
   const { setMasterData, removedToken } = PortfolioState();
   const { starredToken } = MainState();
-  const [priceData, setAddresses] = useDexPrice();
+  const [priceData, setAddresses] = useDexPrice(chain);
   const [contWidth, setContWidth] = useState(100);
   const [contHeight, setContHeight] = useState(100);
   const [height, setHeight] = useState(20);
   const contRef = useRef();
-  const { nativeToken } = useNativeBalance();
-  const { balance } = useNativeBalanceCustom(address, chainId);
+  const { balance } = useNativeBalanceCustom(address, chain);
 
   useEffect(() => {
     contHeight < 630 ? setHeight(25) : setHeight(30);
   }, [contHeight]);
+  console.log("filteredAssets", filteredAssets);
+  console.log("priceData", priceData);
+  console.log("assets", assets);
 
   useEffect(() => {
     const getFilterefToken = async () => {
       if (
-        Array.isArray(assets) &&
-        assets[0]?.token_address &&
-        balance?.balance &&
-        nativeToken?.decimals
+        Array.isArray(assets) && assets[0]?.token_address && balance?.balance
           ? true
           : false
       ) {
@@ -44,9 +44,9 @@ const Portfolio = () => {
           {
             token_address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
             balance: balance.balance,
-            decimals: nativeToken.decimals,
-            name: nativeToken.name,
-            symbol: nativeToken.symbol,
+            decimals: networkConfigs[chain].decimals,
+            name: networkConfigs[chain].currencyName,
+            symbol: networkConfigs[chain].currencySymbol,
           },
           ...assets,
         ];
@@ -63,7 +63,7 @@ const Portfolio = () => {
       }
     };
     getFilterefToken();
-  }, [removedToken, nativeToken, balance, assets]);
+  }, [removedToken, balance, assets, address]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((event) => {
@@ -120,7 +120,7 @@ const Portfolio = () => {
       // }
       setMasterData(combinedData);
     }
-  }, [filteredAssets, priceData, starredToken, chainId]);
+  }, [filteredAssets, priceData, starredToken, chain, address]);
 
   useEffect(() => {
     async function getAddress() {

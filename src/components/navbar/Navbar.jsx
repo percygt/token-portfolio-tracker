@@ -1,13 +1,12 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "./navbar.scss";
 import CircleRoundedIcon from "@mui/icons-material/CircleRounded";
 import SearchIcon from "@mui/icons-material/Search";
 import { useMoralis } from "react-moralis";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import { useState } from "react";
 import { TopState } from "../../context/TopContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,20 +20,18 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const { currency, setCurrency, address, setAddress } = TopState();
   const options = ["USD", "PHP"];
-  useEffect(() => {
-    setAddress(walletAddress);
-  }, [walletAddress]);
 
   useEffect(() => {
-    if (location.pathname.split("/")[1] === "portfolio" && isAuthenticated) {
-      navigate(`portfolio/${walletAddress}/chain/all`);
-    } else if (
-      location.pathname.split("/")[1] === "portfolio" &&
-      !isAuthenticated
-    ) {
-      navigate("/portfolio/new");
+    if (location.pathname.split("/")[1] === "portfolio") {
+      if (isAuthenticated) {
+        navigate(`portfolio/${walletAddress}/chain/all`);
+      } else if (!isAuthenticated && address) {
+        navigate(`portfolio/${address}/chain/all`);
+      } else {
+        navigate("/portfolio/new");
+      }
     }
-  }, [walletAddress, isAuthenticated]);
+  }, [address, walletAddress, isAuthenticated]);
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -51,6 +48,7 @@ const Navbar = () => {
 
   const logOut = async () => {
     if (location.pathname.split("/")[1] === "portfolio") {
+      setAddress(null);
       navigate("/portfolio/new");
     }
 

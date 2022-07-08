@@ -24,6 +24,7 @@ export const useErc20Balance = (addr, chainId) => {
           const response = await axios.get(baseURL, options, {
             cancelToken: source.token,
           });
+          console.log(response);
           if (isMounted) {
             if (Array.isArray(response.data) && response.data.length)
               setAssets(response.data);

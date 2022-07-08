@@ -4,30 +4,35 @@ export const networkConfigs = {
     currencySymbol: "ETH",
     blockExplorerUrl: "https://etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    decimals: 18,
   },
   "0x3": {
     chainId: 3,
     currencySymbol: "ETH",
     blockExplorerUrl: "https://ropsten.etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    decimals: 18,
   },
   "0x4": {
     chainId: 4,
     currencySymbol: "ETH",
     blockExplorerUrl: "https://rinkeby.etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    decimals: 18,
   },
   "0x2a": {
     chainId: 42,
     currencySymbol: "ETH",
     blockExplorerUrl: "https://kovan.etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    decimals: 18,
   },
   "0x5": {
     chainId: 5,
     currencySymbol: "ETH",
     blockExplorerUrl: "https://goerli.etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    decimals: 18,
   },
   "0x539": {
     chainId: 1337,
@@ -36,6 +41,7 @@ export const networkConfigs = {
     currencySymbol: "ETH",
     rpcUrl: "http://127.0.0.1:7545",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    decimals: 18,
   },
   "0xa86a": {
     chainId: 43114,
@@ -53,6 +59,7 @@ export const networkConfigs = {
     rpcUrl: "https://bsc-dataseed.binance.org/",
     blockExplorerUrl: "https://bscscan.com/",
     wrapped: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+    decimals: 18,
   },
   "0x61": {
     chainId: 97,
@@ -62,6 +69,7 @@ export const networkConfigs = {
     rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
     blockExplorerUrl: "https://testnet.bscscan.com/",
     wrapped: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+    decimals: 18,
   },
   "0x89": {
     chainId: 137,
@@ -71,6 +79,7 @@ export const networkConfigs = {
     rpcUrl: "https://rpc-mainnet.maticvigil.com/",
     blockExplorerUrl: "https://explorer-mainnet.maticvigil.com/",
     wrapped: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+    decimals: 18,
   },
   "0x13881": {
     chainId: 80001,
@@ -80,6 +89,7 @@ export const networkConfigs = {
     rpcUrl: "https://rpc-mumbai.matic.today/",
     blockExplorerUrl: "https://mumbai.polygonscan.com/",
     wrapped: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+    decimals: 18,
   },
 };
 

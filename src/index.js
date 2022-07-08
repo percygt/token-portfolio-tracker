@@ -2,6 +2,7 @@ import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
+import TopContext from "./context/TopContext";
 
 import "./index.css";
 
@@ -18,7 +19,9 @@ const Application = () => {
   if (isServerInfo)
     return (
       <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
-        <App isServerInfo />
+        <TopContext>
+          <App isServerInfo />
+        </TopContext>
       </MoralisProvider>
     );
 };

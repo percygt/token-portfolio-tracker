@@ -1,4 +1,4 @@
-import "./transaction.scss";
+import "./tokenTransfer.scss";
 import { useNativeTransactions } from "../../hooks/useNativeTransactions";
 import { useEffect, useState } from "react";
 import { getEllipsisTxt, getEllipsisTxtRight } from "../../helpers/formatters";
@@ -7,6 +7,7 @@ import { useMoralis } from "react-moralis";
 import { format } from "date-fns";
 import { useTokenMetadata } from "../../hooks/useTokenMetadata";
 import { useDexPrice } from "../../hooks/useDexPrice";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 const FetchConvertedValue = ({ data, address, value }) => {
   const { Moralis } = useMoralis();
@@ -81,7 +82,7 @@ const TokenAmountValue = ({ priceData, address, data, value }) => {
   return <>${priceAmount.toLocaleString()}</>;
 };
 
-const Transaction = () => {
+const TokenTransfers = () => {
   const {
     account: walletAddress,
     isAuthenticated,
@@ -109,7 +110,10 @@ const Transaction = () => {
 
   return (
     <div className="transaction">
-      <div className="transaction_label">Transactions</div>
+      <div className="transaction_label">
+        <ReceiptLongIcon className="transfer-icon" />
+        Transfers
+      </div>
       <table>
         <thead>
           <tr>
@@ -207,4 +211,4 @@ const Transaction = () => {
   );
 };
 
-export default Transaction;
+export default TokenTransfers;

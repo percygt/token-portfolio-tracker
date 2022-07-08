@@ -1,12 +1,9 @@
 import "./wallet.scss";
 import { NavLink, useParams } from "react-router-dom";
 import { useMoralis } from "react-moralis";
+import { TopState } from "../../context/TopContext";
 const Wallet = () => {
-  const {
-    isWeb3Enabled,
-    isAuthenticated,
-    account: walletAddress,
-  } = useMoralis();
+  const { address } = TopState();
   const { chain } = useParams();
   // const toPath = (WalletId) => {
   //   return `/${walletAddress}/${WalletId}`;
@@ -15,14 +12,14 @@ const Wallet = () => {
   return (
     <div className="wallet-link">
       <NavLink
-        to={`/portfolio/${walletAddress}/chain/${chain}`}
+        to={`/portfolio/${address}/chain/${chain}`}
         className="link"
         activeclassname="active"
       >
         <span>Token</span>
       </NavLink>
       <NavLink
-        to={`/portfolio/${walletAddress}/nft/chain/${chain}`}
+        to={`/portfolio/${address}/nft/chain/${chain}`}
         className="link"
         activeclassname="active"
       >

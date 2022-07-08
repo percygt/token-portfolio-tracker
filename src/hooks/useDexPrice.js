@@ -6,11 +6,10 @@ import { useMoralis } from "react-moralis";
 const IsNative = (address) =>
   address === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
-export const useDexPrice = () => {
+export const useDexPrice = (chain) => {
   const [addresses, setAddresses] = useState([]);
   const [priceData, setPriceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { Moralis, chainId } = useMoralis();
 
   useEffect(() => {
     let isMounted = true;
@@ -20,7 +19,7 @@ export const useDexPrice = () => {
       Promise.all(
         tokenAddresses.map(async (address) => {
           const tokenAddress = IsNative(address)
-            ? getWrappedNative(chainId)
+            ? getWrappedNative(chain)
             : address;
           try {
             console.log("fetching data from DEX...");
@@ -60,6 +59,6 @@ export const useDexPrice = () => {
       isMounted = false;
       source.cancel();
     };
-  }, [addresses]);
+  }, [addresses, chain]);
   return [priceData, setAddresses];
 };

@@ -1,6 +1,6 @@
 .dashboard {
   .dashboard_top {
-    height: 30rem;
+    height: 28rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -33,6 +33,6 @@
     }
   }
   .dashboard_bottom {
-    height: calc(100vh - 42rem);
+    height: calc(100vh - 39rem);
   }
 }

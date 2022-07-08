@@ -22,6 +22,7 @@ const PortfolioContext = ({ children }) => {
     );
     setFilteredToken(filtered);
   }, [search, masterData]);
+
   // const filteredToken = masterData.filter(
   //   (data) =>
   //     data.name.toLowerCase().includes(search.toLowerCase()) ||

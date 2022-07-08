@@ -23,26 +23,43 @@
     border-radius: 20px;
     background-color: var(--light);
   }
-  .search {
-    margin: 1rem 1rem 0;
+  .wallet-top {
     display: flex;
-    width: 15rem;
-    background-color: var(--bg2);
-    height: 1.5rem;
     align-items: center;
-    border-radius: 0.5rem;
-    border: 1px solid var(--light);
-    .search_icon {
-      font-size: 0.8rem;
-      width: 1.5rem;
-    }
-    input {
+    margin: 0.75rem 1rem 0;
+    justify-content: space-between;
+    width: calc(100% - 2rem);
+    .wallet_label {
       display: flex;
-      width: 13rem;
+      font-size: var(--m);
+      color: var(--highlight);
+      align-items: center;
+      gap: 0.2rem;
+      .holdings-icon {
+        width: 1rem;
+      }
+    }
+    .search {
+      display: flex;
+      width: 15rem;
       background-color: var(--bg2);
-      color: var(--tx-clr);
+      height: 1.5rem;
+      align-items: center;
+      border-radius: 0.5rem;
+      border: 1px solid var(--light);
+      .search_icon {
+        font-size: 0.8rem;
+        width: 1.5rem;
+      }
+      input {
+        display: flex;
+        width: 13rem;
+        background-color: var(--bg2);
+        color: var(--tx-clr);
+      }
     }
   }
+
   table {
     width: 100%;
     padding: 0 0.5rem;
@@ -52,9 +69,9 @@
     font-size: var(--m);
     thead {
       background-color: var(--bg2-light);
-      background-image: var(--bg-image);
+      // background-image: var(--bg-image);
       border-top: var(--border);
-      border-radius: 0.25rem;
+      border-radius: 0.2rem;
       height: 1.75rem;
       display: flex;
       color: var(--grey1);
@@ -85,6 +102,7 @@
           justify-content: center;
           font-size: var(--m);
           font-weight: 300;
+          width: 100%;
         }
       }
     }
@@ -132,12 +150,9 @@
           align-items: center;
           font-size: var(--m);
           font-weight: 300;
+          width: 100%;
           .holdings-icon {
             width: 1rem;
-          }
-          .holdings-star {
-            width: 1rem;
-            height: 100%;
           }
         }
       }

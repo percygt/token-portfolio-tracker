@@ -1,19 +1,22 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCurrencyConvert } from "../hooks/useCurrencyConvert";
-import { useStarredTokenStorage } from "../hooks/useStarredTokenStorage";
-import { useCGWatchStorage } from "../hooks/useCGWatchStorage";
 import { useMoralis } from "react-moralis";
+
 const Top = createContext();
 const TopContext = ({ children }) => {
-  const { account: walletAddress } = useMoralis();
+  const { account: walletAddress, isAuthenticated, chainId } = useMoralis();
   const [currency, setCurrency] = useState("USD");
   const [symbol, setSymbol] = useState("$");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(null);
   const { conversion } = useCurrencyConvert(currency);
+  const chain = chainId ? chainId : "0x38";
+
   useEffect(() => {
-    if (!address) setAddress(walletAddress);
-    else setAddress(address);
+    if (address) setAddress(address);
+    else if (address && walletAddress) setAddress(walletAddress);
+    else setAddress(walletAddress);
   }, [walletAddress]);
+
   useEffect(() => {
     if (currency === "USD") setSymbol("$");
     else if (currency === "PHP") setSymbol("₱");
@@ -28,6 +31,7 @@ const TopContext = ({ children }) => {
         conversion,
         address,
         setAddress,
+        chain,
       }}
     >
       {children}

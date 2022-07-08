@@ -11,7 +11,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
 import Layout from "./Layout";
 import New from "./pages/new/New";
-import TopContext from "./context/TopContext";
 
 const App = ({ isServerInfo }) => {
   const {
@@ -21,7 +20,7 @@ const App = ({ isServerInfo }) => {
     isWeb3EnableLoading,
     account: walletAddress,
   } = useMoralis();
-  const [wallet, setWallet] = useState(walletAddress);
+
   useEffect(() => {
     const connectorId = window.localStorage.getItem("connectorId");
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
@@ -29,27 +28,25 @@ const App = ({ isServerInfo }) => {
   }, [isAuthenticated, isWeb3Enabled]);
 
   return (
-    <TopContext>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="portfolio">
-              <Route path="new" index element={<New />} />
-              <Route path=":address">
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="portfolio">
+            <Route path="new" index element={<New />} />
+            <Route path=":address">
+              <Route path="chain/:chain" element={<Portfolio />} />
+              <Route path="nft" element={<Portfolio />}>
                 <Route path="chain/:chain" element={<Portfolio />} />
-                <Route path="nft" element={<Portfolio />}>
-                  <Route path="chain/:chain" element={<Portfolio />} />
-                </Route>
               </Route>
             </Route>
-            <Route path="swap" element={<Swap />} />
-            <Route path="tools" element={<Tools />} />
-            <Route path="about" element={<About />} />
           </Route>
-        </Routes>
-      </Router>
-    </TopContext>
+          <Route path="swap" element={<Swap />} />
+          <Route path="tools" element={<Tools />} />
+          <Route path="about" element={<About />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 };
 

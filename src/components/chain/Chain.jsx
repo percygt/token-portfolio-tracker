@@ -1,18 +1,14 @@
 import "./chain.scss";
 import { NavLink, useLocation } from "react-router-dom";
-import { useMoralis } from "react-moralis";
+import { TopState } from "../../context/TopContext";
 const Chain = () => {
-  const {
-    isWeb3Enabled,
-    isAuthenticated,
-    account: walletAddress,
-  } = useMoralis();
+  const { address } = TopState();
   const location = useLocation();
 
   const toPath = (chainId) => {
     if (location.pathname.split("/")[3] === "nft") {
-      return `/portfolio/${walletAddress}/nft/chain/${chainId}`;
-    } else return `/portfolio/${walletAddress}/chain/${chainId}`;
+      return `/portfolio/${address}/nft/chain/${chainId}`;
+    } else return `/portfolio/${address}/chain/${chainId}`;
   };
 
   return (
