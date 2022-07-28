@@ -22,11 +22,9 @@
       background-color: var(--bg2-light);
       box-shadow: var(--shadow);
     }
-    .carousel {
-      min-height: 4rem;
-    }
+
     .content {
-      min-height: calc(100vh - 10rem);
+      min-height: calc(100vh - 5.75rem);
       width: 100%;
     }
   }

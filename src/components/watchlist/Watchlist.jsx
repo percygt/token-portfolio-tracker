@@ -75,7 +75,7 @@ const Watchlist = () => {
 
     setDexWatchlist(dexWatch);
   }, [priceData]);
-  useEffect(() => {}, []);
+
   useEffect(() => {
     const coinAddress = starredToken.filter((addr) => {
       return addr.slice(0, 2) !== "0x";
