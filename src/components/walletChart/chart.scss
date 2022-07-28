@@ -1,0 +1,63 @@
+.balance-chart {
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+  .chain-name {
+    display: flex;
+    position: absolute;
+    top: 3.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    img {
+      display: flex;
+      background-color: var(--highlight);
+      padding: 0.25rem;
+      width: 4rem;
+      border-radius: 2rem;
+    }
+  }
+  .chart-token-name {
+    display: flex;
+    position: absolute;
+    top: 3rem;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: column;
+    img {
+      display: flex;
+      width: 3rem;
+      border-radius: 2rem;
+    }
+  }
+  .transfer-btn {
+    position: absolute;
+    top: 16rem;
+    background-color: var(--highlight);
+    color: var(--bg);
+    padding: 0.25rem 1rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: var(--m);
+    &:hover {
+      background-color: var(--grey1);
+      // color: var(--highlight);
+    }
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .balance-chart {
+    .chain-name {
+      top: 4rem;
+      img {
+        width: 3rem;
+        border-radius: 1.5rem;
+      }
+    }
+    .transfer-btn {
+      top: 14.5rem;
+    }
+  }
+}

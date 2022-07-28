@@ -1,0 +1,30 @@
+.overlay {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999999;
+  .modalContainer {
+    background-color: var(--bg-elem);
+    max-width: 30rem;
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+    position: relative;
+    .modal-close {
+      position: absolute;
+      font-size: 1rem;
+      right: 0.5rem;
+      top: 0.5rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      border: var(--border);
+    }
+  }
+}

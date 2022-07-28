@@ -1,0 +1,171 @@
+.watchlist {
+  width: 100%;
+  position: relative;
+  .watchlist_label {
+    display: flex;
+    justify-content: center;
+    color: var(--grey1);
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: var(--sm);
+    font-weight: 900;
+    border-bottom: var(--border);
+    .icon {
+      font-size: 1rem;
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: var(--bg2);
+    &:hover {
+      background-color: var(--grey1);
+    }
+  }
+  .watchlist_add {
+    top: 4.5rem;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    z-index: 9999;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    .watchlist_add_searchbar {
+      display: flex;
+      align-items: center;
+      width: calc(100% - 0.5rem);
+      background-color: var(--bg);
+      border-radius: 0.25rem;
+      border: 1px solid var(--light);
+      .watch_search {
+        display: flex;
+        height: 2rem;
+        background-color: var(--bg);
+        font-size: var(--xsm);
+        width: 100%;
+        color: var(--tx-clr);
+        padding-left: 0.5rem 0.25rem;
+      }
+      .address-search-icon {
+        width: 2.25rem;
+        font-size: 1.25rem;
+      }
+    }
+    .watchlist_add_content {
+      margin-top: 0.2rem;
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      overflow: hidden scroll;
+      max-height: 10rem;
+      background-color: var(--bg);
+      color: var(--tx-clr);
+      z-index: 9999;
+      border: var(--border);
+      > * {
+        margin: 0.2rem;
+        padding: 0.2rem 0.5rem;
+        font-size: var(--sm);
+        border-top: var(--border);
+        border-radius: 0.25rem;
+        cursor: pointer;
+        &:hover {
+          background-color: var(--accent);
+        }
+      }
+    }
+  }
+  .watchlist_container {
+    overflow: hidden scroll;
+    top: 7rem;
+    position: absolute;
+    margin-top: 0.25rem;
+    width: 100%;
+    padding: 0.5rem 0.25rem;
+    height: calc(100vh - 8rem);
+    .no_data_to_show {
+      font-size: var(--sm);
+    }
+    .watchlist_content {
+      .watchlist_from {
+        color: var(--grey1);
+        position: absolute;
+        font-size: var(--xxsm);
+        top: 0.25rem;
+        right: 0.25rem;
+        padding: 0 0.2rem;
+      }
+      .watch_item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      padding: 1rem;
+      width: 100%;
+      border: var(--border);
+      cursor: pointer;
+      display: flex;
+      margin-bottom: 0.25rem;
+      background-color: var(--bg-elem);
+      align-items: center;
+      border-radius: 0.25rem;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      color: var(--highlight);
+      box-shadow: var(--shadow);
+      .left {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        .token_symbol {
+          font-size: var(--sm);
+        }
+        .token_name {
+          font-size: var(--xsm);
+          color: var(--grey1);
+        }
+      }
+      .right {
+        border-left: var(--border);
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .token_price {
+          font-size: var(--m);
+        }
+      }
+      &:hover {
+        transform: scale(1.01);
+        background-color: var(--light);
+        transition: var(--transition);
+      }
+      .watch_remove_icon {
+        position: absolute;
+        top: -0.15rem;
+        right: -0.1rem;
+        color: var(--bg);
+        z-index: 999;
+        > * {
+          font-size: 0.75rem;
+        }
+        &:hover {
+          transform: scale(1.1);
+          border: var(--border2);
+        }
+      }
+    }
+  }
+}
+.no_data_to_show {
+  display: flex;
+  justify-content: center;
+}
+@media only screen and (max-width: 1600px) {
+}

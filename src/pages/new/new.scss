@@ -1,0 +1,13 @@
+.new {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 25rem;
+  }
+  span {
+    color: var(--grey1);
+  }
+}

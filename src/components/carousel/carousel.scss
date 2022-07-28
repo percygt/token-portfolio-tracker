@@ -1,0 +1,78 @@
+.carousel {
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(
+    to right,
+    var(--bg-light),
+    var(--bg2-light),
+    var(--bg2-light),
+    var(--bg-light)
+  );
+  box-shadow: var(--shadow);
+
+  &:hover {
+    background-image: linear-gradient(
+      to right,
+      var(--bg),
+      var(--light),
+      var(--light),
+      var(--bg)
+    );
+  }
+  .widget {
+    display: flex;
+    padding: 0.2rem 1rem;
+    justify-content: space-between;
+    border-left: var(--border);
+    cursor: pointer;
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 50%;
+      gap: 0.1rem;
+      .token__symbol {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        .c_icon {
+          height: 0.75rem;
+          margin-right: 0.5rem;
+        }
+      }
+      .token__name {
+        font-size: 0.6rem;
+        color: gray;
+      }
+    }
+    .right {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      .token__price {
+        display: flex;
+        font-size: 0.8rem;
+        justify-content: flex-end;
+      }
+      .token__24hChange {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 0.7rem;
+        height: 1rem;
+        &.positive {
+          color: green;
+        }
+        &.negative {
+          color: red;
+        }
+        .arrow_icon {
+          display: flex;
+          left: 2rem;
+          top: -0.5rem;
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}

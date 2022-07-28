@@ -1,0 +1,32 @@
+.swap {
+  margin: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+  .swap-container {
+    display: flex;
+    width: 100%;
+    height: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 20rem;
+    }
+    .swap-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .under {
+        font-size: var(--xxl);
+        color: var(--highlight);
+      }
+      .construction {
+        font-size: var(--l);
+      }
+    }
+  }
+}

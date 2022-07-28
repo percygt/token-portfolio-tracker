@@ -1,0 +1,92 @@
+.nft-wallet {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 3rem);
+  border-top: var(--border);
+  border-bottom: var(--border);
+  padding: 0 1rem;
+  position: relative;
+  background-color: var(--bg-elem);
+  box-shadow: var(--shadow);
+  width: 100%;
+  .table {
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    .thead {
+      color: var(--grey1);
+      .tr {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        // height: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: var(--shadow);
+        span:nth-child(1) {
+          width: 40%;
+        }
+        :not(span:nth-child(1)) {
+          width: 20%;
+        }
+        span {
+          display: flex;
+          height: 1.25rem;
+          align-items: center;
+          justify-content: center;
+          font-size: var(--sm);
+          font-weight: 3900;
+
+          color: var(--grey2);
+        }
+      }
+    }
+    .tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      .nft-active {
+        background-color: var(--light);
+        // background-image: var(--bg-image);
+        color: var(--grey1);
+        box-shadow: var(--shadow);
+      }
+      .tr {
+        display: flex;
+        background-color: var(--bg2-light);
+        height: 2rem;
+        border-radius: 0.1rem;
+        width: 100%;
+
+        cursor: pointer;
+        &:hover {
+          background-color: var(--light);
+          color: var(--grey1);
+          box-shadow: var(--shadow);
+        }
+        span:nth-child(1) {
+          width: 40%;
+        }
+        :not(span:nth-child(1)) {
+          width: 20%;
+        }
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: var(--sm);
+          font-weight: 300;
+          width: 100%;
+          .holdings-icon {
+            width: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// @media only screen and (max-width: 1600px) {
+// }

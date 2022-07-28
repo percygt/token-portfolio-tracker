@@ -1,0 +1,92 @@
+.donate {
+  margin: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+  justify-content: center;
+  .donate-container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    .donate-left {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 50%;
+      gap: 1.5rem;
+      .icon {
+        width: 1rem;
+        color: var(--highlight);
+      }
+      .donate-title {
+        font-size: var(--xxl);
+        font-weight: 900;
+        span {
+          color: var(--highlight);
+        }
+      }
+      .donate-body {
+        font-size: var(--m);
+        color: var(--grey1);
+        flex-direction: column;
+        display: flex;
+        gap: 1.5rem;
+        width: 100%;
+        align-items: center;
+        .donate-links {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          .donate-token-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: black;
+            font-weight: 600;
+            img {
+              width: 2rem;
+            }
+          }
+          box-shadow: var(--shadow);
+          background-color: var(--light);
+          width: 30rem;
+          display: flex;
+          align-items: center;
+          height: 3rem;
+          justify-content: space-between;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          .donate-token-address {
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            background-color: var(--bg);
+            padding: 0.1rem 0.75rem;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            .address-copy-icon {
+              width: 0.8rem;
+            }
+            &:hover {
+              background-color: var(--bg2);
+            }
+          }
+        }
+      }
+    }
+    .donate-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+
+      img {
+        display: flex;
+        // height: 35rem;
+        // width: 35rem;
+      }
+    }
+  }
+}

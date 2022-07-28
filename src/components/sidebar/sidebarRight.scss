@@ -1,0 +1,11 @@
+.sidebar-right {
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+@media only screen and (max-width: 1600px) {
+  .sidebar-right {
+    padding: 0.5rem;
+  }
+}

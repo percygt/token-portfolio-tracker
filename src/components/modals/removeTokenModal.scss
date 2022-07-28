@@ -1,0 +1,39 @@
+.remove-token-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 3rem;
+  width: 100%;
+  .remove-token-content {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    font-size: var(--m);
+    .remove-token-icon {
+      color: red;
+      font-size: 3rem;
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: flex-end;
+    button {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--highlight);
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      width: 5rem;
+      height: 2rem;
+      &:hover {
+        background-color: var(--light);
+        border: 1px solid var(--highlight);
+      }
+    }
+  }
+}

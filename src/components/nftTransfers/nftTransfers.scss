@@ -1,0 +1,104 @@
+.transaction {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 1rem);
+
+  .transaction_label {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: var(--sm);
+    color: var(--grey1);
+    font-weight: 900;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    .transfer-icon {
+      width: 1rem;
+    }
+
+    // border: var(--border);
+    // border-radius: 0.2rem;
+    // padding: 0 0.25rem;
+  }
+  ::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: var(--accent);
+    &:hover {
+      background-color: var(--grey1);
+    }
+  }
+  .table {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 0.5rem;
+    .thead {
+      background-color: var(--bg-elem);
+      color: var(--grey2);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 0.25rem;
+
+      .tr {
+        display: flex;
+        border-radius: 0.1rem;
+        margin: 0.75rem 0;
+        width: 100%;
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: var(--sm);
+          font-weight: 900;
+          width: 100%;
+        }
+        span ~ span {
+          border-left: 2px solid var(--accent);
+        }
+      }
+    }
+    .tbody {
+      overflow-y: scroll;
+      padding-left: 0.3rem;
+      background-color: var(--bg);
+
+      border-bottom: 1px solid var(--light);
+      padding-top: 0.3rem;
+      box-shadow: var(--shadow);
+
+      .tr {
+        display: flex;
+        background-color: var(--bg2-light);
+        border-radius: 0.1rem;
+        padding: 0.275rem 0;
+        height: 2rem;
+        font-weight: 300;
+        margin-bottom: 0.2rem;
+        box-shadow: var(--shadow);
+
+        span {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          font-size: var(--sm);
+          border-radius: 0.2rem;
+          margin: 0 0.5rem;
+          cursor: pointer;
+          a {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+          }
+          &:hover {
+            background-color: var(--light);
+            color: var(--grey1);
+          }
+        }
+      }
+    }
+  }
+}
