@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="copyright">Copyright © PRCY</div>
-      <div className="description">COGS is a block explorer for all chains</div>
+      <div className="description">COGS Platform</div>
     </div>
   );
 };
