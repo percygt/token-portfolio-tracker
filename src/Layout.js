@@ -33,8 +33,8 @@ const Layout = () => {
           <SidebarLeft />
           <div className="main">
             <Navbar />
-
             <div className="content">
+              <Carousel />
               <PortfolioContext>
                 <Outlet />
               </PortfolioContext>
